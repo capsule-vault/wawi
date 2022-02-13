@@ -15,7 +15,7 @@ const Footer = React.forwardRef(({ isInMenu = false }: Props, ref) => (
   <footer
     className={`flex flex-col px-[25px] ${
       isInMenu
-        ? 'pt-0 pb-[25px]'
+        ? 'pt-0 sm:pt-[51px] pb-[25px]'
         : 'pt-[51px] pb-[100px] sm:flex-row sm:justify-between sm:px-[136px]'
     }`}
     ref={ref}

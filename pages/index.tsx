@@ -9,7 +9,7 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <section className="container mx-auto grid grid-cols-12 sm:mt-[128px] px-[24px]">
-        <div className="col-span-full sm:col-span-6 mt-[24px] sm:mt-[unset] sm:p-[24px] bg-primary]">
+        <div className="col-span-full sm:col-span-6 mt-[24px] sm:mt-[unset] sm:px-[48px] bg-primary]">
           <Image src={introImg} layout="responsive"></Image>
         </div>
         <div className="col-span-full sm:col-span-6">
@@ -28,7 +28,33 @@ const Home: NextPage = () => {
             pioneers in the Wild, will not only receive the high-quality images
             but also be granted full commercial rights to these assets they own.
           </p>
-          <div></div>
+          <div className="border sm:border-0 mt-[32px] p-[24px] pb-[32px] sm:p-0">
+            <div className="flex flex-col sm:flex-row justify-center items-center sm:py-[24px] sm:border">
+              <div className="flex justify-between items-center w-full sm:w-[unset]">
+                <button className="relative w-[48px] h-[48px]">
+                  <div className="absolute left-1/2 top-1/2 w-1/2 border-t transform -translate-x-1/2"></div>
+                </button>
+                <input
+                  className="flex justify-center items-center w-[120px] bg-bg border-0 text-center"
+                  type="number"
+                  min={1}
+                  max={3}
+                  value={1}
+                ></input>
+                <button className="relative w-[48px] h-[48px]">
+                  <div className="absolute left-1/2 top-1/2 w-1/2 border-t transform -translate-x-1/2"></div>
+                  <div className="absolute left-1/2 top-1/2 w-1/2 border-t transform -translate-x-1/2 rotate-90"></div>
+                </button>
+              </div>
+              <button className="w-full sm:w-[148px] sm:h-[48px] sm:ml-[24px] mt-[24px] sm:mt-0 bg-primary rounded-full">
+                <div className="text-bg uppercase">Mint</div>
+                <div className="caption2 text-bg uppercase">Total 0.05 ETH</div>
+              </button>
+            </div>
+            <p className="mt-[24px]">
+              Mint Wildlings - 0.05 ETH per token, 3 max per tx.
+            </p>
+          </div>
         </div>
       </section>
     </Layout>
