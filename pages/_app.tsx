@@ -16,8 +16,6 @@ import '../styles/globals.css';
 
 // import wawiAbi from '../wawiAbi.json';
 
-export const Context = React.createContext();
-
 const title = 'Wasted Wild';
 const description =
   'Capsule Vault proudly presents Wasted Wild, Chapter 2 of the Trilogy - a collection of imaginary beings thriving in the post-human age. Preceded by Absurd Arboretum, the project inherits and embodies the core ethos of becoming an integral part of our ecology.';
@@ -33,6 +31,25 @@ type State = {
   isMobile: boolean;
 };
 
+type Action = {
+  type: string;
+  payload?: any;
+};
+
+type Reducer = (state: State, action: Action) => State;
+
+type RefValue = {
+  onboard: any;
+  provider: any;
+  wawiContract: any;
+};
+
+type ContextValue = {
+  state: State;
+  dispatch: (action: Action) => void;
+  ref: React.MutableRefObject<RefValue>;
+};
+
 const initialState: State = {
   signerAddress: '',
   signerEns: '',
@@ -44,7 +61,9 @@ const initialState: State = {
   isMobile: true,
 };
 
-const reducer = (state: State, action) => {
+export const Context = React.createContext({} as ContextValue);
+
+const reducer: Reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case 'SET_SIGNER_ADDRESS': {
       const signerAddress = action.payload;
@@ -88,10 +107,16 @@ const reducer = (state: State, action) => {
         lang,
       };
     }
-    case 'TOGGLE_MENU': {
+    case 'OPEN_MENU': {
       return {
         ...state,
-        isMenuOpen: !state.isMenuOpen,
+        isMenuOpen: true,
+      };
+    }
+    case 'CLOSE_MENU': {
+      return {
+        ...state,
+        isMenuOpen: false,
       };
     }
     case 'SET_IS_MOBILE': {
@@ -114,7 +139,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     onboard: null,
     provider: null,
     wawiContract: null,
-  });
+  } as RefValue);
   useEffect(() => {
     // ref.current.onboard = Onboard({
     //   dappId: process.env.NEXT_PUBLIC_BN_API_KEY,
@@ -222,7 +247,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         <meta property="og:type" content="website" />
       </Head>
-      <Context.Provider value={[state, dispatch, ref]}>
+      <Context.Provider value={{ state, dispatch, ref }}>
         <Component {...pageProps} />
       </Context.Provider>
     </>

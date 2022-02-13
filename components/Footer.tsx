@@ -11,14 +11,13 @@ type Props = {
   isInMenu?: boolean;
 };
 
-const Footer = React.forwardRef(({ isInMenu = false }: Props, ref) => (
+const Footer = ({ isInMenu = false }: Props) => (
   <footer
     className={`flex flex-col px-[25px] ${
       isInMenu
         ? 'pt-0 sm:pt-[51px] pb-[25px]'
         : 'pt-[51px] pb-[100px] sm:flex-row sm:justify-between sm:px-[136px]'
     }`}
-    ref={ref}
   >
     <div>
       <div className="tab mb-[8px] uppercase">Links</div>
@@ -66,6 +65,5 @@ const Footer = React.forwardRef(({ isInMenu = false }: Props, ref) => (
       </p>
     </div>
   </footer>
-));
-
+);
 export default Footer;

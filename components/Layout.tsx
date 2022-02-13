@@ -1,4 +1,4 @@
-import React, { ReactNode, Fragment, useContext } from 'react';
+import React, { ReactNode, Fragment, useContext, useCallback } from 'react';
 
 import { Transition } from '@headlessui/react';
 
@@ -13,11 +13,22 @@ type Props = {
 };
 
 const Layout = ({ children }: Props) => {
-  const [state, dispatch, ref] = useContext(Context);
+  const { state, dispatch } = useContext(Context);
+
+  const openMenu = useCallback(() => {
+    dispatch({
+      type: 'OPEN_MENU',
+    });
+  }, []);
+  const closeMenu = useCallback(() => {
+    dispatch({
+      type: 'CLOSE_MENU',
+    });
+  }, []);
 
   return (
     <>
-      <Header isMobile={state.isMobile}></Header>
+      <Header isMobile={state.isMobile} onOpenMenuBtnClick={openMenu}></Header>
       {children}
       <Footer></Footer>
       <Transition
@@ -30,7 +41,7 @@ const Layout = ({ children }: Props) => {
         leaveFrom="opacity-100 translate-x-0"
         leaveTo="opacity-0 translate-x-full"
       >
-        <Menu isMobile={state.isMobile}></Menu>
+        <Menu isMobile={state.isMobile} onCloseBtnClick={closeMenu}></Menu>
       </Transition>
     </>
   );
