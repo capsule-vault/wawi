@@ -4,7 +4,7 @@
 
 @layer base {
   html, body {
-    @apply font-primary text-[16px] bg-bg text-primary;
+    @apply antialiased font-primary text-[16px] bg-bg text-primary;
   }
 
   h1 {
@@ -32,5 +32,21 @@
   }
   .caption2 {
     @apply text-[10px] font-light leading-[22px] tracking-[0.2px];
+  }
+}
+
+@layer components {
+  :root {
+    --swiper-theme-color: #cccccc;
+    --swiper-pagination-bullet-size: 12px;
+    --swiper-pagination-bullet-inactive-color: #cccccc;
+    --swiper-pagination-bullet-inactive-opacity: 0.3;
+    --swiper-pagination-bullet-horizontal-gap: 6px;
+  }
+
+  @media (min-width: 640px) {
+    :root {
+      --swiper-pagination-bullet-horizontal-gap: 16px;
+    }
   }
 }

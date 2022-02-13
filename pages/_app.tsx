@@ -4,13 +4,13 @@ import React, { useReducer, useEffect, useRef } from 'react';
 import Onboard from 'bnc-onboard';
 import { ethers } from 'ethers';
 
-// import 'swiper/css';
-// import 'swiper/css/navigation';
-// import 'swiper/css/autoplay';
-// import 'swiper/css/effect-fade';
-// import 'swiper/css/pagination';
-// import 'swiper/css/zoom';
-// import 'react-image-lightbox/style.css';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/autoplay';
+import 'swiper/css/effect-fade';
+import 'swiper/css/pagination';
+import 'swiper/css/zoom';
+import 'react-image-lightbox/style.css';
 
 import '../styles/globals.css';
 
