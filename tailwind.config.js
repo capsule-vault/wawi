@@ -12,6 +12,11 @@ module.exports = {
     fontFamily: {
       primary: ['Montserrat', 'sans-serif'],
     },
+    container: {
+      screens: {
+        md: '1168px',
+      },
+    },
     extend: {},
   },
   plugins: [require('@tailwindcss/forms')],
