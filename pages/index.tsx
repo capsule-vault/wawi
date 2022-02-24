@@ -464,7 +464,7 @@ const Home: NextPage = () => {
                       procedurally generated, and rendered in 3D, our assets may
                       be fed into the metaverse quite well, some tweaks would of
                       course be required, given the different requirements and
-                      standards of the various platforms, but we're on it!
+                      standards of the various platforms, but we{`'`}re on it!
                     </p>
                   </div>
                 </div>

@@ -1,9 +1,14 @@
-import { Fragment } from 'react';
+import { Fragment, ReactNode } from 'react';
 import { Transition, Popover } from '@headlessui/react';
 
-const MyPopover = (props) => (
+type Props = {
+  children: ReactNode;
+  button: ReactNode;
+};
+
+const MyPopover = ({ children, button }: Props) => (
   <Popover>
-    {props.button}
+    {button}
     <Transition
       as={Fragment}
       enter="transition duration-100 ease-out"
@@ -14,7 +19,7 @@ const MyPopover = (props) => (
       leaveTo="transform scale-95 opacity-0"
     >
       <Popover.Panel className="fixed inset-0 z-50 bg-bg overflow-y-scroll">
-        {props.children}
+        {children}
       </Popover.Panel>
     </Transition>
   </Popover>
