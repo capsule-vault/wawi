@@ -7,13 +7,17 @@ import React, {
   useEffect,
   useContext,
 } from 'react';
+import { Popover } from '@headlessui/react';
 import { Navigation, Autoplay, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Lightbox from 'react-image-lightbox';
 
 import Layout from '../components/Layout';
+import MyPopover from '../components/Popover';
 
 import { Context } from './_app';
+
+import iconCloseImg from '../public/icons/close.png';
 
 import preview01Img from '../public/images/preview_01.png';
 import preview02Img from '../public/images/preview_02.png';
@@ -29,6 +33,15 @@ import goal01Img from '../public/images/goal_01.png';
 import goal02Img from '../public/images/goal_02.png';
 import goal03Img from '../public/images/goal_03.png';
 import goal04Img from '../public/images/goal_04.png';
+
+import storyImg from '../public/images/story.png';
+
+import roadmap01Img from '../public/images/roadmap_01.png';
+import roadmap02Img from '../public/images/roadmap_02.png';
+import roadmap03Img from '../public/images/roadmap_03.png';
+import roadmap04Img from '../public/images/roadmap_04.png';
+import roadmap05Img from '../public/images/roadmap_05.png';
+import roadmap06Img from '../public/images/roadmap_06.png';
 
 import se01Img from '../public/images/se_01.png';
 import se02Img from '../public/images/se_02.png';
@@ -119,10 +132,12 @@ const Home: NextPage = () => {
           <video src="/intro.mp4" muted autoPlay loop></video>
         </div>
         <div className="sm:flex-1">
-          <h2 className="mt-[32px] sm:mt-[unset] font-bold text-[36px] leading-[36px] tracking-[1px] uppercase">
+          <h2 className="h3 sm:h2 font-bold uppercase sm:whitespace-nowrap mt-[32px] sm:mt-[unset]">
             Mint For Our Ecology
           </h2>
-          <div className="tab mt-[16px]">Wasted Wild NFTs By Capsule Vault</div>
+          <div className="tab mt-[16px] sm:text-right">
+            Wasted Wild NFTs By Capsule Vault
+          </div>
           <p className="mt-[32px]">
             Mint a Wasted Wild NFT and plant a tree in the physical world.
             Restore the wild by protecting endangered species and habitats. So
@@ -175,9 +190,7 @@ const Home: NextPage = () => {
 
       <section className="container mx-auto mt-[50px] sm:mt-[128px] px-[24px] sm:px-0 pt-[50px]">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-          <h2 className="text-[30px] font-bold leading-[36px] tracking-[1px] uppercase">
-            Wasted Wild NFT
-          </h2>
+          <h2 className="h3 font-bold uppercase">Wasted Wild NFT</h2>
           <button className="flex justify-center items-center w-full sm:w-[268px] h-[48px] mt-[24px] sm:mt-0 border rounded-full">
             Opensea
           </button>
@@ -278,22 +291,209 @@ const Home: NextPage = () => {
 
       <section className="container mx-auto mt-[50px] sm:mt-[128px] px-[24px] sm:px-0 pt-[50px]">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-          <h2 className="text-[30px] font-bold leading-[36px] tracking-[1px] uppercase">
-            Goal
-          </h2>
+          <h2 className="h3 font-bold uppercase">Goal</h2>
           <div className="flex flex-col sm:flex-row sm:space-x-[32px]">
-            <button className="flex justify-center items-center w-full sm:w-[268px] h-[48px] mt-[24px] sm:mt-0 border rounded-full">
-              Story
-            </button>
-            <button className="flex justify-center items-center w-full sm:w-[268px] h-[48px] mt-[24px] sm:mt-0 border rounded-full">
-              Roadmap
-            </button>
+            <MyPopover
+              button={
+                <Popover.Button className="flex justify-center items-center w-full sm:w-[268px] h-[48px] mt-[24px] sm:mt-0 border rounded-full">
+                  Story
+                </Popover.Button>
+              }
+            >
+              <section className="container mx-auto sm:relative sm:top-1/2 sm:transform sm:-translate-y-1/2 px-[24px] sm:px-0 pt-[30px] pb-[50px]">
+                <div className="flex justify-between items-center">
+                  <h3 className="h3 sm:h1 uppercase font-bold">Story</h3>
+                  <Popover.Button className="w-[32px]">
+                    <Image src={iconCloseImg} layout="responsive"></Image>
+                  </Popover.Button>
+                </div>
+                <div className="flex flex-col sm:flex-row-reverse mt-[20px]">
+                  <div className="sm:shrink-0 w-full sm:w-[527px]">
+                    <Image src={storyImg} layout="responsive"></Image>
+                  </div>
+                  <div className="mt-[32px] sm:mt-0 sm:mr-[48px]">
+                    <p>
+                      Capsule Vault proudly presents Wasted Wild, a collection
+                      of 4200 imaginary beings thriving in the post-human age.
+                      Preceded by Absurd Arboretum, the project inherits and
+                      embodies the core ethos of becoming an integral part of
+                      our ecology by planting trees with initial primary sales
+                      and with each secondary sale continuously.
+                    </p>
+                    <br />
+                    <p>
+                      These procedurally generated life forms are not only
+                      digital, non-fungible tokens living on the Ethereum
+                      blockchain, stored as ERC-721 tokens and materialized as
+                      high-resolution images crafted with sophisticated
+                      techniques, but also haunting caricatures of their
+                      endangered ancestors living in the physical world with us
+                      today. These evolved descendants remind humans of the
+                      looming tragedy if we continue to ignore the alert Nature
+                      has been signaling us.
+                    </p>
+                    <br />
+                    <p>
+                      The mutated Wildlings in Wasted Wild are both victims and
+                      deities in a quasi-dystopian world that has become
+                      increasingly intolerable for pure biological organisms
+                      that we were familiar with. They have adapted to live in
+                      undesirable conditions filled with waste, the majority of
+                      which has been produced by human activities and
+                      post-industrial civilizations; a lot of these creatures
+                      have even developed varying levels of cyborg-like
+                      biomechatronic features to augment their daily lives.
+                    </p>
+                  </div>
+                </div>
+              </section>
+            </MyPopover>
+            <MyPopover
+              button={
+                <Popover.Button className="flex justify-center items-center w-full sm:w-[268px] h-[48px] mt-[24px] sm:mt-0 border rounded-full">
+                  Roadmap
+                </Popover.Button>
+              }
+            >
+              <section className="container mx-auto sm:max-h-[80vh] sm:overflow-y-scroll sm:relative sm:top-1/2 sm:transform sm:-translate-y-1/2 px-[24px] sm:px-0 pt-[30px] pb-[50px]">
+                <div className="flex justify-between items-center">
+                  <h3 className="h3 sm:h1 uppercase font-bold">Roadmap</h3>
+                  <Popover.Button className="w-[32px]">
+                    <Image src={iconCloseImg} layout="responsive"></Image>
+                  </Popover.Button>
+                </div>
+                <div className="tab sm:h4 mt-[20px]">
+                  Welcome to the Wasted Wild ROADMAP ! Like Absurd Arboretum and
+                  the epic BONFIRE Festival that followed, we have many exciting
+                  giveaways, events, and charities coming up for Wasted Wild.
+                  All three projects are parts of one big story in the Capsule
+                  Vault metaverse.
+                </div>
+                <div className="flex flex-col sm:flex-row mt-[32px]">
+                  <div className="sm:shrink-0 w-full sm:w-[168px]">
+                    <Image src={roadmap01Img} layout="responsive"></Image>
+                  </div>
+                  <div className="mt-[32px] sm:mt-0 sm:ml-[32px]">
+                    <h4 className="h4 sm:h3 text-[22px]">
+                      11% Physical Manifestation
+                    </h4>
+                    <p className="mt-[24px]">
+                      Continuing the tradition to manifest our tokens both
+                      digitally and physically.
+                    </p>
+                    <br />
+                    <p>
+                      • Holders of 5 or more Wildlings will receive 3D printing
+                      sculpture!
+                      <br />• Special edition LARGE 3D prints raffle for all
+                      current holders ! (1 NFT = 1 entry)
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row mt-[32px]">
+                  <div className="sm:shrink-0 w-full sm:w-[168px]">
+                    <Image src={roadmap02Img} layout="responsive"></Image>
+                  </div>
+                  <div className="mt-[32px] sm:mt-0 sm:ml-[32px]">
+                    <h4 className="h4 sm:h3 text-[22px]">
+                      22% Special Edition Reveal
+                    </h4>
+                    <p className="mt-[24px]">
+                      24 Special Artist Editions from 11 Top-Tier Artists will
+                      be revealed with exclusive raffles for all Wildling
+                      holders.
+                    </p>
+                    <br />
+                    <p>
+                      Special Edition holders will have exclusive utilities in
+                      the future.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row mt-[32px]">
+                  <div className="sm:shrink-0 w-full sm:w-[168px]">
+                    <Image src={roadmap03Img} layout="responsive"></Image>
+                  </div>
+                  <div className="mt-[32px] sm:mt-0 sm:ml-[32px]">
+                    <h4 className="h4 sm:h3 text-[22px]">
+                      55% Capsule Vault Dao
+                    </h4>
+                    <p className="mt-[24px]">
+                      Establish a community-owned Capsule Vault DAO to partner
+                      and support projects with sustainability missions!
+                    </p>
+                    <br />
+                    <p>More details to be revealed …</p>
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row mt-[32px]">
+                  <div className="sm:shrink-0 w-full sm:w-[168px]">
+                    <Image src={roadmap04Img} layout="responsive"></Image>
+                  </div>
+                  <div className="mt-[32px] sm:mt-0 sm:ml-[32px]">
+                    <h4 className="h4 sm:h3 text-[22px]">66% Adopt A Rhino</h4>
+                    <p className="mt-[24px]">
+                      As we continue to plant trees, with Wa-Wi, we will dive
+                      into the protection of wildlife, too!
+                    </p>
+                    <br />
+                    <p>
+                      The contribution will be recurring with periodic updates
+                      on our Rhino which will be shared with the community. As
+                      technology advances, we should all utilize it to not only
+                      create innovative work and beautiful art but also
+                      contribute to important causes such as improving the
+                      environment and ecology.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row mt-[32px]">
+                  <div className="sm:shrink-0 w-full sm:w-[168px]">
+                    <Image src={roadmap05Img} layout="responsive"></Image>
+                  </div>
+                  <div className="mt-[32px] sm:mt-0 sm:ml-[32px]">
+                    <h4 className="h4 sm:h3 text-[22px]">
+                      88% Into The Metaverse
+                    </h4>
+                    <p className="mt-[24px]">
+                      Assets Reveal for either Decentraland or The Sandbox!
+                    </p>
+                    <br />
+                    <p>
+                      As all of the images are first meticulously modeled,
+                      procedurally generated, and rendered in 3D, our assets may
+                      be fed into the metaverse quite well, some tweaks would of
+                      course be required, given the different requirements and
+                      standards of the various platforms, but we're on it!
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row mt-[32px]">
+                  <div className="sm:shrink-0 w-full sm:w-[168px]">
+                    <Image src={roadmap06Img} layout="responsive"></Image>
+                  </div>
+                  <div className="mt-[32px] sm:mt-0 sm:ml-[32px]">
+                    <h4 className="h4 sm:h3 text-[22px]">
+                      100% Wasted Evolution
+                    </h4>
+                    <p className="mt-[24px]">
+                      BONFIRE Festival Part 2 to be announced ...
+                    </p>
+                    <br />
+                    <p>
+                      Various activities, airdrops, and tokenomics will ensue,
+                      combined with the charity component of the project!
+                    </p>
+                  </div>
+                </div>
+              </section>
+            </MyPopover>
           </div>
         </div>
         <div className="sm:grid sm:grid-cols-2 sm:gap-[32px] mt-[40px] space-y-[40px] sm:space-y-0">
           <div>
             <Image src={goal01Img}></Image>
-            <h4 className="mt-[32px] uppercase">An Unique Community</h4>
+            <h3 className="h4 mt-[32px] uppercase">An Unique Community</h3>
             <p className="mt-[24px]">
               Continue to grow our amazing community that has started and been
               flourishing since June 2021 with Chapter 1 of the Capsule Vault
@@ -303,7 +503,7 @@ const Home: NextPage = () => {
           </div>
           <div>
             <Image src={goal02Img}></Image>
-            <h4 className="mt-[32px] uppercase">Physical Plus Digital</h4>
+            <h3 className="h4 mt-[32px] uppercase">Physical Plus Digital</h3>
             <p className="mt-[24px]">
               Continue the tradition to manifest our tokens both digitally and
               physically. There will be giveaways to early supporters like how
@@ -313,7 +513,7 @@ const Home: NextPage = () => {
           </div>
           <div>
             <Image src={goal03Img}></Image>
-            <h4 className="mt-[32px] uppercase">Platform & Collabs</h4>
+            <h3 className="h4 mt-[32px] uppercase">Platform & Collabs</h3>
             <p className="mt-[24px]">
               With Ab-Ar, we had the Venation and the Fireworks where we worked
               with artists beyond our core team; and in Wa-Wi, there are even
@@ -323,9 +523,9 @@ const Home: NextPage = () => {
           </div>
           <div>
             <Image src={goal04Img}></Image>
-            <h4 className="mt-[32px] uppercase">
+            <h3 className="h4 mt-[32px] uppercase">
               Commitment To the Environment
-            </h4>
+            </h3>
             <p className="mt-[24px]">
               Donate to a community-selected NGO dedicated to the protection of
               wildlife and the restoration of habitats, such as Re:wild or
@@ -338,12 +538,10 @@ const Home: NextPage = () => {
       </section>
 
       <section className="container mx-auto mt-[50px] sm:mt-[128px] px-[24px] sm:px-0 pt-[50px]">
-        <h2 className="text-[30px] font-bold leading-[36px] tracking-[1px] uppercase">
-          Artists
-        </h2>
-        <h4 className="mt-[40px]">
+        <h2 className="h3 font-bold uppercase">Artists</h2>
+        <div className="h4 mt-[40px]">
           COLLABORATORS for Special Editions, click images to read details.
-        </h4>
+        </div>
         <div className="sm:flex sm:justify-center sm:items-center mt-[40px]">
           <div
             ref={swiper2Ref}
@@ -443,9 +641,7 @@ const Home: NextPage = () => {
       </section>
 
       <section className="container mx-auto mt-[50px] sm:mt-[128px] px-[24px] sm:px-0 py-[50px]">
-        <h2 className="text-[30px] font-bold leading-[36px] tracking-[1px] uppercase">
-          Team
-        </h2>
+        <h2 className="h3 font-bold uppercase">Team</h2>
         <div className="grid grid-cols-2 gap-x-[16px] sm:gap-x-[32px] gap-y-[32px] sm:gap-y-[40px] mt-[40px]">
           {[
             {

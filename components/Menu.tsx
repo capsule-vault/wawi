@@ -14,7 +14,7 @@ const Menu = React.forwardRef<HTMLDivElement, Props>(
   ({ isMobile = false, onCloseBtnClick }: Props, ref) => {
     return (
       <div
-        className="fixed inset-0 sm:left-[unset] sm:w-[416px] sm:border-l bg-bg overflow-y-scroll"
+        className="fixed inset-0 z-50 sm:left-[unset] sm:w-[416px] sm:border-l bg-bg overflow-y-scroll"
         ref={ref}
       >
         <div className="flex flex-col justify-between min-h-screen">

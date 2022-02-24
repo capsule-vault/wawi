@@ -43,6 +43,14 @@ const Layout = ({ children }: Props) => {
       >
         <Menu isMobile={state.isMobile} onCloseBtnClick={closeMenu}></Menu>
       </Transition>
+      {!state.isMobile && (
+        <div
+          className={`${
+            state.isMenuOpen ? 'fixed' : 'hidden'
+          } inset-0 z-40 bg-bg opacity-50`}
+          onClick={closeMenu}
+        ></div>
+      )}
     </>
   );
 };

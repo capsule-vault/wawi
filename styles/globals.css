@@ -7,16 +7,16 @@
     @apply antialiased font-primary text-[16px] bg-bg text-primary;
   }
 
-  h1 {
+  .h1 {
     @apply text-[48px] font-semibold leading-[50px] tracking-[1px];
   }
-  h2 {
+  .h2 {
     @apply text-[43px] font-semibold leading-[48px] tracking-[1px];
   }
-  h3 {
+  .h3 {
     @apply text-[30px] font-medium leading-[36px] tracking-[1px];
   }
-  h4 {
+  .h4 {
     @apply text-[24px] font-medium leading-[32px] tracking-[1px];
   }
   p {
