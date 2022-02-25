@@ -227,7 +227,6 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>{title}</title>
         <meta charSet="utf-8" />
-        <link rel="icon" href="/favicon.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content={description} />
         <meta name="twitter:card" content="summary_large_image" />

@@ -6,8 +6,11 @@ import React, {
   useRef,
   useEffect,
   useContext,
+  useMemo,
+  Fragment,
+  ReactNode,
 } from 'react';
-import { Popover } from '@headlessui/react';
+import { Transition, Popover, Dialog } from '@headlessui/react';
 import { Navigation, Autoplay, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Lightbox from 'react-image-lightbox';
@@ -54,6 +57,17 @@ import se08Img from '../public/images/se_08.png';
 import se09Img from '../public/images/se_09.png';
 import se10Img from '../public/images/se_10.png';
 
+import artist01Img from '../public/images/artist_01.png';
+import artist02Img from '../public/images/artist_02.png';
+import artist03Img from '../public/images/artist_03.png';
+import artist04Img from '../public/images/artist_04.png';
+import artist05Img from '../public/images/artist_05.png';
+import artist06Img from '../public/images/artist_06.png';
+import artist07Img from '../public/images/artist_07.png';
+import artist08Img from '../public/images/artist_08.png';
+import artist09Img from '../public/images/artist_09.png';
+import artist10Img from '../public/images/artist_10.png';
+
 import team01Img from '../public/images/team_01.png';
 import team02Img from '../public/images/team_02.png';
 import team03Img from '../public/images/team_03.png';
@@ -78,18 +92,14 @@ const swiper1Images = [
   '/images/preview_08.png',
   '/images/preview_09.png',
 ];
-const swiper2Images = [
-  '/images/se_01.png',
-  '/images/se_02.png',
-  '/images/se_03.png',
-  '/images/se_04.png',
-  '/images/se_05.png',
-  '/images/se_06.png',
-  '/images/se_07.png',
-  '/images/se_08.png',
-  '/images/se_09.png',
-  '/images/se_10.png',
-];
+
+type ArtistByName = {
+  [key: string]: {
+    name: string;
+    description: ReactNode;
+    image: StaticImageData;
+  };
+};
 
 const Home: NextPage = () => {
   const { state } = useContext(Context);
@@ -121,9 +131,169 @@ const Home: NextPage = () => {
     });
   }, []);
   const [isLightbox1Open, setIsLightbox1Open] = useState(false);
-  const [isLightbox2Open, setIsLightbox2Open] = useState(false);
   const [lightbox1Idx, setLightbox1Idx] = useState(0);
-  const [lightbox2Idx, setLightbox2Idx] = useState(0);
+
+  const [isArtistModalOpen, setIsArtistModalOpen] = useState(false);
+  const [currArtistName, setCurrArtistName] = useState('aka_chang');
+  const openArtistModal = useCallback(() => {
+    setIsArtistModalOpen(true);
+  }, []);
+  const closeArtistModal = useCallback(() => {
+    setIsArtistModalOpen(false);
+  }, []);
+  const handleArtistModalOpenBtnClick = useCallback(
+    (name) => () => {
+      setCurrArtistName(name);
+      openArtistModal();
+    },
+    [openArtistModal],
+  );
+
+  const artistByName: ArtistByName = useMemo(
+    () => ({
+      aka_chang: {
+        name: 'aka_chang',
+        description: (
+          <p>
+            {`As a light artist, aka_chang focuses on the textures and the senses of the temperature from multiple lighting materials. Use the ray of light materials to construct the sculpture that sites in space and interacts with the sound. Early entry into the visual arts field as a VJ, he is the founder of the "muse-whisper VJ Team" and the first VJ info platform written by Mandarin:" Zuirens." He is an important promoter of the rise of Taiwan's contemporary VJ culture.`}
+          </p>
+        ),
+        image: artist01Img,
+      },
+      CACHOU: {
+        name: 'CACHOU',
+        description: (
+          <p>
+            We will reveal the story in our Discord’s #artist-spotlight channel
+            soon.
+          </p>
+        ),
+        image: artist02Img,
+      },
+      CL_SOUL_: {
+        name: 'CL_SOUL_',
+        description: (
+          <p>
+            We will reveal the story in our Discord’s #artist-spotlight channel
+            soon.
+          </p>
+        ),
+        image: artist03Img,
+      },
+      equinoz: {
+        name: 'equinoz',
+        description: (
+          <>
+            <p>
+              equinoz is a Taiwanese creator with a distinctive Sci-Fi style,
+              often seen in a lot of his characters and landscape works, he has
+              been an iconic explorer among his peers. Besides constantly
+              creating astonishing 3D high-res characters, equinoz is also
+              talented in delivering the full picture to express his ideology
+              around the Metaverse concept. As equinoz states in the Visible
+              Future collection descrption, “My works are all about the mixture
+              of Culture, technology, bright, elegant, and a little futuristic
+              crazy nonsense, those are the symbols in my art, and it is the
+              future I am eager for.”
+            </p>
+            <br />
+            <p>
+              equinoz is constantly exploring the possibilities around
+              co-creations. In 2021, his collaboration with RTFKT Studios for
+              the Capsule Space Drip collection made his name appears to the
+              greater NFT lovers. equinoz is currently building his PFP project
+              — Project E within the Elysium System.
+            </p>
+            <br />
+            <p>
+              equinoz’s Special Edition 1/1 NFT It is Capsule Vault’s honor to
+              have equinoz as our @creature collaborator to create three special
+              editions. These works wish to demonstrate the connection between
+              cyborg-like biomechatronic features and death symbols in the
+              Wasted Wild collection.
+            </p>
+            <br />
+            <p>
+              {`"I added elements such as human skulls and death in the three 1/1s I created for the collection and also incorporated animal, human, and mechanical parts to symbolize that the fate of these species and the fate of ours are closely intertwined. However, the blue crystals are there to remind us of the scarce and purely natural resources we still have left."`}
+            </p>
+          </>
+        ),
+        image: artist04Img,
+      },
+      'Jona Hsu': {
+        name: 'Jona Hsu',
+        description: (
+          <p>
+            We will reveal the story in our Discord’s #artist-spotlight channel
+            soon.
+          </p>
+        ),
+        image: artist05Img,
+      },
+      KhooKG: {
+        name: 'KhooKG',
+        description: (
+          <p>
+            We will reveal the story in our Discord’s #artist-spotlight channel
+            soon.
+          </p>
+        ),
+        image: artist06Img,
+      },
+      'Toma Tang': {
+        name: 'Toma Tang',
+        description: (
+          <p>
+            We will reveal the story in our Discord’s #artist-spotlight channel
+            soon.
+          </p>
+        ),
+        image: artist07Img,
+      },
+      'Ray Han': {
+        name: 'Ray Han',
+        description: (
+          <p>
+            We will reveal the story in our Discord’s #artist-spotlight channel
+            soon.
+          </p>
+        ),
+        image: artist08Img,
+      },
+      'Sic Lee': {
+        name: 'Sic Lee',
+        description: (
+          <>
+            <p>
+              {`Sic Lee is an illustrator / tattoo artist based in Taiwan, a member of the "Moon Face Dragon Temple" creative team (IG: mfdt606). He adopts simplistic lines and dynamic colors to create a distinguished style and often spices up his work with a bit of dark humor and sarcasm.`}
+            </p>
+            <br />
+            <p>
+              {`Sic's Special Edition 1/1 Dodo “I have no idea what NFT truly is when Capsule Vault approached me for collaboration. I thought this was just a typical collaboration. After I acknowledged the NFT community that Capsule Vault team is trying to establish, all of a sudden I felt like I am down in the rabbit hole. That's when I came up with this human in disguise who is trying to survive in the Wasted Wild world. I find this character shares a lot of similarities with myself, a traditional creator entering the NFT world.”`}
+            </p>
+            <br />
+            <p>
+              Sic is working on the collaboration with artist Raimochi from Rug
+              Pull Frens collection. You can find out more info about this
+              raffle in Rug Pull Frens Discord server!
+            </p>
+          </>
+        ),
+        image: artist09Img,
+      },
+      ZHIXIAN: {
+        name: 'ZHIXIAN',
+        description: (
+          <p>
+            We will reveal the story in our Discord’s #artist-spotlight channel
+            soon.
+          </p>
+        ),
+        image: artist10Img,
+      },
+    }),
+    [],
+  );
 
   return (
     <Layout>
@@ -243,7 +413,7 @@ const Home: NextPage = () => {
               ].map((img, idx) => (
                 <SwiperSlide
                   className="w-[300px] py-[84px]"
-                  key={idx}
+                  key={img.src}
                   onClick={() => {
                     setIsLightbox1Open(true);
                     setLightbox1Idx(idx);
@@ -253,7 +423,6 @@ const Home: NextPage = () => {
                     <Image
                       src={img}
                       layout="responsive"
-                      alt={`preview-${idx}`}
                       placeholder="blur"
                     ></Image>
                   </div>
@@ -588,20 +757,18 @@ const Home: NextPage = () => {
                 { img: se08Img, name: 'Ray Han' },
                 { img: se09Img, name: 'Sic Lee' },
                 { img: se10Img, name: 'ZHIXIAN' },
-              ].map(({ img, name }, idx) => (
+              ].map(({ img, name }) => (
                 <SwiperSlide
                   className="relative w-[300px] py-[132px]"
-                  key={idx}
-                  onClick={() => {
-                    setIsLightbox2Open(true);
-                    setLightbox2Idx(idx);
-                  }}
+                  key={name}
                 >
-                  <div className="w-full">
+                  <div
+                    className="w-full"
+                    onClick={handleArtistModalOpenBtnClick(name)}
+                  >
                     <Image
                       src={img}
                       layout="responsive"
-                      alt={`preview-${idx}`}
                       placeholder="blur"
                     ></Image>
                   </div>
@@ -613,31 +780,58 @@ const Home: NextPage = () => {
             </Swiper>
           </div>
         </div>
-        {isLightbox2Open && (
-          <Lightbox
-            mainSrc={swiper2Images[lightbox2Idx]}
-            nextSrc={swiper2Images[(lightbox2Idx + 1) % swiper2Images.length]}
-            prevSrc={
-              swiper2Images[
-                (lightbox2Idx + swiper2Images.length - 1) % swiper2Images.length
-              ]
-            }
-            onCloseRequest={() => {
-              setIsLightbox2Open(false);
-            }}
-            onMoveNextRequest={() => {
-              setLightbox2Idx((lightbox2Idx + 1) % swiper2Images.length);
-            }}
-            onMovePrevRequest={() => {
-              setLightbox2Idx(
-                (lightbox2Idx + swiper2Images.length - 1) %
-                  swiper2Images.length,
-              );
-            }}
-            enableZoom={false}
-            imagePadding={50}
-          />
-        )}
+
+        <Transition.Root show={isArtistModalOpen} as={Fragment}>
+          <Dialog
+            className="fixed inset-0 z-40 overflow-y-auto"
+            open={isArtistModalOpen}
+            onClose={closeArtistModal}
+          >
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Dialog.Overlay className="fixed inset-0 bg-bg" />
+            </Transition.Child>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <section className="relative sm:container sm:mx-auto sm:top-1/2 sm:transform sm:-translate-y-1/2 px-[24px] sm:px-0 pt-[30px] pb-[50px]">
+                <div className="flex justify-between items-center">
+                  <Dialog.Title className="h3 sm:h1 font-bold">
+                    Artist - {artistByName[currArtistName].name}
+                  </Dialog.Title>
+                  <button className="w-[32px]" onClick={closeArtistModal}>
+                    <Image src={iconCloseImg} layout="responsive"></Image>
+                  </button>
+                </div>
+                <div className="flex flex-col sm:flex-row-reverse mt-[20px]">
+                  <div className="sm:shrink-0 w-full sm:w-[527px]">
+                    <Image
+                      src={artistByName[currArtistName].image}
+                      layout="responsive"
+                      placeholder="blur"
+                    ></Image>
+                  </div>
+                  <div className="mt-[32px] sm:mt-0 sm:mr-[48px]">
+                    {artistByName[currArtistName].description}
+                  </div>
+                </div>
+              </section>
+            </Transition.Child>
+          </Dialog>
+        </Transition.Root>
       </section>
 
       <section className="container mx-auto mt-[50px] sm:mt-[128px] px-[24px] sm:px-0 py-[50px]">
