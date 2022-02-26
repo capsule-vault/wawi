@@ -1,5 +1,5 @@
-import React from 'react';
 import Image from 'next/image';
+import React from 'react';
 
 import iconMediumImg from '../public/icons/medium.png';
 import iconTwitterImg from '../public/icons/twitter.png';
