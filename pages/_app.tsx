@@ -27,7 +27,6 @@ type State = {
   maxSupply: string;
   maxTokensPerTx: string;
   lang: string;
-  isMenuOpen: boolean;
   isMobile: boolean;
 };
 
@@ -57,7 +56,6 @@ const initialState: State = {
   maxSupply: '6666',
   maxTokensPerTx: '5',
   lang: 'en',
-  isMenuOpen: false,
   isMobile: true,
 };
 
@@ -105,18 +103,6 @@ const reducer: Reducer = (state: State, action: Action): State => {
       return {
         ...state,
         lang,
-      };
-    }
-    case 'OPEN_MENU': {
-      return {
-        ...state,
-        isMenuOpen: true,
-      };
-    }
-    case 'CLOSE_MENU': {
-      return {
-        ...state,
-        isMenuOpen: false,
       };
     }
     case 'SET_IS_MOBILE': {

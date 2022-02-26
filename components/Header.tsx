@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import Image from 'next/image';
+
+import Menu from '../components/Menu';
 
 import logoImg from '../public/logo.png';
 import iconMenuImg from '../public/icons/menu.png';
 
 type Props = {
   isMobile?: boolean;
-  onOpenMenuBtnClick: () => void;
 };
 
-const Header = ({ isMobile = false, onOpenMenuBtnClick }: Props) => {
+const Header = ({ isMobile = false }: Props) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const openMenu = useCallback(() => {
+    setIsMenuOpen(true);
+  }, []);
+  const closeMenu = useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
+
   return (
     <header className="flex justify-between items-center h-[80px] sm:h-[112px] border-b border-primary">
       <div className="w-[182px] ml-[17px] sm:ml-[64px]">
@@ -30,11 +39,16 @@ const Header = ({ isMobile = false, onOpenMenuBtnClick }: Props) => {
           </>
         )}
         <div className="flex justify-center items-center w-[88px] sm:w-[208px] h-full border-l">
-          <button className="w-[40px]" onClick={onOpenMenuBtnClick}>
+          <button className="w-[40px]" onClick={openMenu}>
             <Image src={iconMenuImg} layout="responsive"></Image>
           </button>
         </div>
       </div>
+      <Menu
+        isMobile={isMobile}
+        isOpen={isMenuOpen}
+        onCloseBtnClick={closeMenu}
+      ></Menu>
     </header>
   );
 };

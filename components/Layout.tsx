@@ -1,8 +1,7 @@
-import React, { ReactNode, useContext, useCallback } from 'react';
+import React, { useContext, ReactNode } from 'react';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Menu from '../components/Menu';
 
 import { Context } from '../pages/_app';
 
@@ -11,29 +10,13 @@ type Props = {
 };
 
 const Layout = ({ children }: Props) => {
-  const { state, dispatch } = useContext(Context);
-
-  const openMenu = useCallback(() => {
-    dispatch({
-      type: 'OPEN_MENU',
-    });
-  }, []);
-  const closeMenu = useCallback(() => {
-    dispatch({
-      type: 'CLOSE_MENU',
-    });
-  }, []);
+  const { state } = useContext(Context);
 
   return (
     <>
-      <Header isMobile={state.isMobile} onOpenMenuBtnClick={openMenu}></Header>
+      <Header isMobile={state.isMobile}></Header>
       {children}
       <Footer></Footer>
-      <Menu
-        isOpen={state.isMenuOpen}
-        isMobile={state.isMobile}
-        onCloseBtnClick={closeMenu}
-      ></Menu>
     </>
   );
 };
