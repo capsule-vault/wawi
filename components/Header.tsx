@@ -13,7 +13,7 @@ const Header = ({ isMobile = false, onOpenMenuBtnClick }: Props) => {
   return (
     <header className="flex justify-between items-center h-[80px] sm:h-[112px] border-b border-primary">
       <div className="w-[182px] ml-[17px] sm:ml-[64px]">
-        <Image src={logoImg} layout="responsive"></Image>
+        <Image src={logoImg} layout="responsive" priority></Image>
       </div>
       <div className="self-stretch flex">
         {!isMobile && (

@@ -314,7 +314,7 @@ const Home: NextPage = () => {
     <Layout>
       <section className="container mx-auto sm:flex sm:mt-[128px] px-[24px]">
         <div className="sm:flex-1 mt-[24px] sm:mt-[unset] sm:px-[48px] bg-primary]">
-          <video src="/intro.mp4" muted autoPlay loop></video>
+          <video src="/intro.mp4" muted autoPlay loop playsInline></video>
         </div>
         <div className="sm:flex-1">
           <h2 className="h3 sm:h2 font-bold uppercase sm:whitespace-nowrap mt-[32px] sm:mt-[unset]">
