@@ -493,12 +493,12 @@ const Home: NextPage = () => {
                   as={Fragment}
                   enter="ease-out duration-300"
                   enterFrom="opacity-0"
-                  enterTo="opacity-100"
+                  enterTo="opacity-98"
                   leave="ease-in duration-200"
-                  leaveFrom="opacity-100"
+                  leaveFrom="opacity-98"
                   leaveTo="opacity-0"
                 >
-                  <Dialog.Overlay className="fixed inset-0 bg-bg" />
+                  <Dialog.Overlay className="fixed inset-0 bg-bg bg-opacity-98" />
                 </Transition.Child>
                 <Transition.Child
                   as={Fragment}
@@ -513,7 +513,11 @@ const Home: NextPage = () => {
                     <div className="flex justify-between items-center">
                       <h3 className="h3 sm:h1 uppercase font-bold">Story</h3>
                       <button className="w-[32px]" onClick={closeStoryModal}>
-                        <Image src={iconCloseImg} layout="responsive"></Image>
+                        <Image
+                          src={iconCloseImg}
+                          layout="responsive"
+                          priority
+                        ></Image>
                       </button>
                     </div>
                     <div className="flex flex-col sm:flex-row-reverse mt-[20px]">
@@ -581,12 +585,12 @@ const Home: NextPage = () => {
                   as={Fragment}
                   enter="ease-out duration-300"
                   enterFrom="opacity-0"
-                  enterTo="opacity-100"
+                  enterTo="opacity-98"
                   leave="ease-in duration-200"
-                  leaveFrom="opacity-100"
+                  leaveFrom="opacity-98"
                   leaveTo="opacity-0"
                 >
-                  <Dialog.Overlay className="fixed inset-0 bg-bg" />
+                  <Dialog.Overlay className="fixed inset-0 bg-bg bg-opacity-98" />
                 </Transition.Child>
                 <Transition.Child
                   as={Fragment}
@@ -601,7 +605,11 @@ const Home: NextPage = () => {
                     <div className="flex justify-between items-center">
                       <h3 className="h3 sm:h1 uppercase font-bold">Roadmap</h3>
                       <button className="w-[32px]" onClick={closeRoadmapModal}>
-                        <Image src={iconCloseImg} layout="responsive"></Image>
+                        <Image
+                          src={iconCloseImg}
+                          layout="responsive"
+                          priority
+                        ></Image>
                       </button>
                     </div>
                     <div className="tab sm:h4 mt-[20px]">
@@ -873,12 +881,12 @@ const Home: NextPage = () => {
               as={Fragment}
               enter="ease-out duration-300"
               enterFrom="opacity-0"
-              enterTo="opacity-100"
+              enterTo="opacity-98"
               leave="ease-in duration-200"
-              leaveFrom="opacity-100"
+              leaveFrom="opacity-98"
               leaveTo="opacity-0"
             >
-              <Dialog.Overlay className="fixed inset-0 bg-bg" />
+              <Dialog.Overlay className="fixed inset-0 bg-bg bg-opacity-98" />
             </Transition.Child>
             <Transition.Child
               as={Fragment}
@@ -895,7 +903,11 @@ const Home: NextPage = () => {
                     Artist - {artistByName[currArtistName].name}
                   </Dialog.Title>
                   <button className="w-[32px]" onClick={closeArtistModal}>
-                    <Image src={iconCloseImg} layout="responsive"></Image>
+                    <Image
+                      src={iconCloseImg}
+                      layout="responsive"
+                      priority
+                    ></Image>
                   </button>
                 </div>
                 <div className="flex flex-col sm:flex-row-reverse mt-[20px]">

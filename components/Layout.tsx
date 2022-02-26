@@ -1,6 +1,4 @@
-import React, { ReactNode, Fragment, useContext, useCallback } from 'react';
-
-import { Transition } from '@headlessui/react';
+import React, { ReactNode, useContext, useCallback } from 'react';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -31,26 +29,11 @@ const Layout = ({ children }: Props) => {
       <Header isMobile={state.isMobile} onOpenMenuBtnClick={openMenu}></Header>
       {children}
       <Footer></Footer>
-      <Transition
-        as={Fragment}
-        show={state.isMenuOpen}
-        enter="transform transition-all duration-500"
-        enterFrom="opacity-0 translate-x-full"
-        enterTo="opacity-100 translate-x-0"
-        leave="transform transition-all duration-500"
-        leaveFrom="opacity-100 translate-x-0"
-        leaveTo="opacity-0 translate-x-full"
-      >
-        <Menu isMobile={state.isMobile} onCloseBtnClick={closeMenu}></Menu>
-      </Transition>
-      {!state.isMobile && (
-        <div
-          className={`${
-            state.isMenuOpen ? 'fixed' : 'hidden'
-          } inset-0 z-40 bg-bg opacity-50`}
-          onClick={closeMenu}
-        ></div>
-      )}
+      <Menu
+        isOpen={state.isMenuOpen}
+        isMobile={state.isMobile}
+        onCloseBtnClick={closeMenu}
+      ></Menu>
     </>
   );
 };
