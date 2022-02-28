@@ -59,68 +59,68 @@ const Menu = ({
               <div>
                 <div className="px-[24px] py-[32px] border-b">
                   <Link href="/#">
-                    <a
+                    <button
                       className="tab block mb-[24px] no-underline"
                       onClick={onCloseBtnClick}
                     >
                       Introduction 介紹
-                    </a>
+                    </button>
                   </Link>
                   <Link href="/#mint">
-                    <a
+                    <button
                       className="p block uppercase no-underline"
                       onClick={onCloseBtnClick}
                     >
                       Mint Now
-                    </a>
+                    </button>
                   </Link>
                 </div>
                 <div className="px-[24px] py-[32px] border-b">
                   <Link href="/#goal">
-                    <a
+                    <button
                       className="tab block mb-[24px] no-underline"
                       onClick={onCloseBtnClick}
                     >
                       Core Values 核心價值
-                    </a>
+                    </button>
                   </Link>
                   <div className="space-y-[16px]">
                     <Link href="/#story">
-                      <a
+                      <button
                         className="p block uppercase no-underline"
                         onClick={onCloseBtnClick}
                       >
                         Story
-                      </a>
+                      </button>
                     </Link>
                     <Link href="/#roadmap">
-                      <a
+                      <button
                         className="p block uppercase no-underline"
                         onClick={onCloseBtnClick}
                       >
                         Roadmap
-                      </a>
+                      </button>
                     </Link>
                   </div>
                 </div>
                 <div className="px-[24px] py-[32px] border-b">
                   <Link href="/#artist">
-                    <a
+                    <button
                       className="tab block no-underline"
                       onClick={onCloseBtnClick}
                     >
                       Artist 藝術家
-                    </a>
+                    </button>
                   </Link>
                 </div>
                 <div className="px-[24px] py-[32px] border-b">
                   <Link href="/#team">
-                    <a
+                    <button
                       className="tab block no-underline"
                       onClick={onCloseBtnClick}
                     >
                       Team 團隊
-                    </a>
+                    </button>
                   </Link>
                 </div>
                 {state.isMobile && (
@@ -147,15 +147,17 @@ const Menu = ({
               </div>
               <div>
                 <Footer isInMenu></Footer>
-                <div className="flex justify-between items-center px-[24px] border-t">
-                  <button onClick={onCloseBtnClick}>close</button>
-                  <button className="w-[64px]" onClick={onCloseBtnClick}>
-                    <Image
-                      src={iconMenuCloseImg}
-                      layout="responsive"
-                      priority
-                    ></Image>
-                  </button>
+                <div className="fixed inset-x-0 sm:inset-x-[unset] bottom-0 bg-bg">
+                  <div className="flex justify-between items-center sm:w-[416px] h-[80px] px-[24px] border-t">
+                    <button onClick={onCloseBtnClick}>close</button>
+                    <button className="w-[64px]" onClick={onCloseBtnClick}>
+                      <Image
+                        src={iconMenuCloseImg}
+                        layout="responsive"
+                        priority
+                      ></Image>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

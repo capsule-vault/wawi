@@ -42,7 +42,7 @@ const Header = () => {
     openHolderModal();
   }, [openHolderModal, closeMenu]);
 
-  const [currNumMints, setCurrNumMints] = useState(1);
+  const [currNumMints, setCurrNumMints] = useState(maxNumMints);
   const handleMintListboxChange = useCallback((n) => {
     console.log(n);
     setCurrNumMints(n);
@@ -142,7 +142,7 @@ const Header = () => {
                       <Listbox.Options className="absolute w-full sm:w-[426px] mt-[12px] border rounded-3xl overflow-hidden">
                         {new Array(maxNumMints)
                           .fill(null)
-                          .map((_, idx) => idx + 1)
+                          .map((_, idx) => maxNumMints - idx)
                           .map((n) => (
                             <Listbox.Option
                               className="flex justify-center items-center w-full h-[48px] bg-bg cursor-pointer"
@@ -156,8 +156,8 @@ const Header = () => {
                     </div>
                   </Listbox>
                   <button className="w-full sm:w-[426px] h-[48px] bg-primary rounded-full">
-                    <div className="text-bg uppercase">Mint</div>
-                    <div className="caption2 text-bg uppercase">
+                    <div className="tab text-bg uppercase">Mint</div>
+                    <div className="caption2 text-bg uppercase mt-[-6px]">
                       Total {(currNumMints * price).toFixed(2)} ETH
                     </div>
                   </button>
@@ -170,7 +170,7 @@ const Header = () => {
                 <div className="space-y-[32px]">
                   <h3 className="h4">Wasted Wild Holders Claiming</h3>
                   <button className="w-full sm:w-[426px] h-[48px] bg-primary rounded-full">
-                    <div className="text-bg uppercase">Claim</div>
+                    <div className="tab text-bg uppercase">Claim</div>
                   </button>
                   <p>
                     Please first connect your wallet, each eligible Wasted Wild

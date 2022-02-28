@@ -15,40 +15,40 @@ const Footer = ({ isInMenu = false }: Props) => (
   <footer
     className={`flex flex-col px-[25px] ${
       isInMenu
-        ? 'pt-0 sm:pt-[50px] pb-[25px]'
-        : 'pt-[50px] pb-[100px] sm:flex-row sm:justify-between sm:px-[136px]'
+        ? 'mb-[80px] pt-0 sm:pt-[50px] pb-[25px]'
+        : 'sm:flex-row sm:justify-between pt-[50px] sm:pt-[78px] pb-[100px] sm:px-[136px]'
     }`}
   >
     <div>
       <div className="tab uppercase">Links</div>
       <div className="mt-[32px] space-y-[48px]">
-        {[
-          {
-            text: '➔ Smart Contract 智能合約',
-            href: 'https://etherscan.io/address/0x9A894BFED8DEE52ADB437b897eCb65FD2052BE46',
-          },
-          {
-            text: '➔ Wasted Wild Opensea 荒野購買平台',
-            href: 'https://opensea.io/collection/wastedwild',
-          },
-          {
-            text: '➔ Absurd Arboretum Website 荒謬植物園',
-            href: 'https://ab-ar.art/',
-          },
-        ].map(({ text, href }) => (
-          <a
-            className="block text-[16px] font-light leading-[16px] tracking-[0.8px] no-underline"
-            key={href}
-            href={href}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {text}
-          </a>
-        ))}
-        <div className="block text-[16px] font-light leading-[16px] tracking-[0.8px] opacity-30">
+        <a
+          className="button block text-[16px] font-light leading-[16px] tracking-[0.8px] no-underline"
+          href="https://etherscan.io/address/0x9A894BFED8DEE52ADB437b897eCb65FD2052BE46"
+          target="_blank"
+          rel="noreferrer"
+        >
+          ➔ Smart Contract 智能合約
+        </a>
+        <a
+          className="button block text-[16px] font-light leading-[16px] tracking-[0.8px] no-underline"
+          href="https://opensea.io/collection/wastedwild"
+          target="_blank"
+          rel="noreferrer"
+        >
+          ➔ Wasted Wild Opensea 荒野購買平台
+        </a>
+        <a
+          className="button block text-[16px] font-light leading-[16px] tracking-[0.8px] no-underline whitespace-nowrap"
+          href="https://ab-ar.art/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          ➔ Absurd Arboretum Website 荒謬植物園
+        </a>
+        <a className="block text-[16px] font-light leading-[16px] tracking-[0.8px] no-underline opacity-30">
           ➔ How To Mint 購買教學
-        </div>
+        </a>
       </div>
     </div>
     <div
@@ -80,7 +80,7 @@ const Footer = ({ isInMenu = false }: Props) => (
           },
         ].map(({ iconImg, href }) => (
           <a
-            className="w-[32px]"
+            className="button w-[32px]"
             key={href}
             href={href}
             target="_blank"

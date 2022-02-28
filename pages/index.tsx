@@ -22,6 +22,8 @@ import Layout from '../components/Layout';
 import { Context } from './_app';
 
 import iconCloseImg from '../public/icons/close.png';
+import iconSliderPrevImg from '../public/icons/slider_prev.png';
+import iconSliderNextImg from '../public/icons/slider_next.png';
 
 import preview01Img from '../public/images/preview_01.png';
 import preview02Img from '../public/images/preview_02.png';
@@ -32,6 +34,9 @@ import preview06Img from '../public/images/preview_06.png';
 import preview07Img from '../public/images/preview_07.png';
 import preview08Img from '../public/images/preview_08.png';
 import preview09Img from '../public/images/preview_09.png';
+import preview10Img from '../public/images/preview_10.png';
+import preview11Img from '../public/images/preview_11.png';
+import preview12Img from '../public/images/preview_12.png';
 
 import goal01Img from '../public/images/goal_01.png';
 import goal02Img from '../public/images/goal_02.png';
@@ -92,6 +97,9 @@ const swiper1Images = [
   '/images/preview_07.png',
   '/images/preview_08.png',
   '/images/preview_09.png',
+  '/images/preview_10.png',
+  '/images/preview_11.png',
+  '/images/preview_12.png',
 ];
 
 type ArtistByName = {
@@ -112,7 +120,9 @@ const Home: NextPage = () => {
   const minNumTokens = 1;
   const [numTokens, setNumTokens] = useState(1);
   const handleNumTokensInputChange = useCallback((e) => {
-    setNumTokens(e.target.value);
+    setNumTokens(
+      Math.max(minNumTokens, Math.min(maxNumTokens, Number(e.target.value))),
+    );
   }, []);
   const handleIncrementNumTokensBtnClick = useCallback(() => {
     setNumTokens((prev) => (prev + 1 > maxNumTokens ? prev : prev + 1));
@@ -121,20 +131,13 @@ const Home: NextPage = () => {
     setNumTokens((prev) => (prev - 1 < minNumTokens ? prev : prev - 1));
   }, []);
 
-  const swiper1Ref = useRef<HTMLDivElement>(null);
-  const swiper2Ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    [swiper1Ref, swiper2Ref].forEach((swiperRef) => {
-      swiperRef.current!.querySelector<HTMLDivElement>(
-        '.swiper-button-prev',
-      )!.style!.opacity = '0';
-      swiperRef.current!.querySelector<HTMLDivElement>(
-        '.swiper-button-next',
-      )!.style!.opacity = '0';
-    });
-  }, []);
+  const prevPreviewRef = useRef(null);
+  const nextPreviewRef = useRef(null);
   const [isLightbox1Open, setIsLightbox1Open] = useState(false);
   const [lightbox1Idx, setLightbox1Idx] = useState(0);
+
+  const prevArtistRef = useRef(null);
+  const nextArtistRef = useRef(null);
 
   const [isStoryModalOpen, setIsStoryModalOpen] = useState(false);
   const openStoryModal = useCallback(() => {
@@ -265,18 +268,21 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <section
-        className="container mx-auto sm:flex sm:mt-[128px] px-[24px]"
+        className="container mx-auto sm:flex sm:mt-[128px] px-[24px] sm:px-0"
         id="mint"
       >
-        <div className="sm:flex-1 mt-[24px] sm:mt-[unset] sm:px-[48px] bg-primary]">
+        <div className="sm:shrink-0 sm:w-[520px] sm:h-[520px] mt-[24px] sm:mt-[unset] bg-primary]">
           <video src="/intro.mp4" muted autoPlay loop playsInline></video>
         </div>
-        <div className="sm:flex-1">
+        <div className="sm:flex-1 sm:ml-[80px]">
           <h2 className="h3 sm:h2 font-bold uppercase sm:whitespace-nowrap mt-[32px] sm:mt-[unset]">
             Mint For Our Ecology
           </h2>
-          <div className="tab mt-[16px] sm:text-right">
-            Wasted Wild NFTs By Capsule Vault
+          <div className="flex items-center mt-[16px]">
+            {!state.isMobile && <div className="w-[184px] border-b"></div>}
+            <div className="tab sm:ml-[16px]">
+              Wasted Wild NFTs By Capsule Vault
+            </div>
           </div>
           <p className="mt-[32px]">
             <Trans i18nKey="description" ns="intro"></Trans>
@@ -287,28 +293,27 @@ const Home: NextPage = () => {
                 <button
                   className="relative w-[48px] h-[48px]"
                   onClick={handleDecrementNumTokensBtnClick}
+                  disabled={numTokens === minNumTokens}
                 >
                   <div className="absolute left-1/2 top-1/2 w-1/2 border-t transform -translate-x-1/2"></div>
                 </button>
                 <input
                   className="flex justify-center items-center w-[120px] bg-bg border-0 text-center"
-                  type="number"
-                  min={minNumTokens}
-                  max={maxNumTokens}
                   value={numTokens}
                   onChange={handleNumTokensInputChange}
                 ></input>
                 <button
                   className="relative w-[48px] h-[48px]"
                   onClick={handleIncrementNumTokensBtnClick}
+                  disabled={numTokens === maxNumTokens}
                 >
                   <div className="absolute left-1/2 top-1/2 w-1/2 border-t transform -translate-x-1/2"></div>
                   <div className="absolute left-1/2 top-1/2 w-1/2 border-t transform -translate-x-1/2 rotate-90"></div>
                 </button>
               </div>
               <button className="w-full sm:w-[148px] sm:h-[48px] sm:ml-[24px] mt-[24px] sm:mt-0 bg-primary rounded-full">
-                <div className="text-bg uppercase">Mint</div>
-                <div className="caption2 text-bg uppercase">
+                <div className="tab text-bg uppercase">Mint</div>
+                <div className="caption2 text-bg uppercase mt-[-6px]">
                   Total {(numTokens * price).toFixed(2)} ETH
                 </div>
               </button>
@@ -336,39 +341,32 @@ const Home: NextPage = () => {
             Opensea
           </a>
         </div>
-        <div className="sm:flex sm:justify-center sm:items-center mt-[40px]">
-          <div
-            ref={swiper1Ref}
-            className="sm:w-[1100px] mt-[-84px]"
-            onMouseEnter={() => {
-              swiper1Ref.current!.querySelector<HTMLDivElement>(
-                '.swiper-button-next',
-              )!.style!.opacity = '1';
-              swiper1Ref.current!.querySelector<HTMLDivElement>(
-                '.swiper-button-prev',
-              )!.style!.opacity = '1';
-            }}
-            onMouseLeave={() => {
-              if (swiper1Ref === null) {
-                return;
-              }
-              swiper1Ref.current!.querySelector<HTMLDivElement>(
-                '.swiper-button-next',
-              )!.style!.opacity = '0';
-              swiper1Ref.current!.querySelector<HTMLDivElement>(
-                '.swiper-button-prev',
-              )!.style!.opacity = '0';
-            }}
+        <div className="sm:flex sm:justify-center sm:items-center sm:space-x-[20px] mt-[40px]">
+          <button
+            ref={prevPreviewRef}
+            className="hidden sm:block sm:shrink-0 sm:w-[72px]"
           >
+            <Image src={iconSliderPrevImg} layout="responsive" priority></Image>
+          </button>
+          <div className="sm:w-[1100px] mb-[-84px]">
             <Swiper
               modules={[Navigation, Autoplay, Pagination]}
-              navigation
+              navigation={{
+                prevEl: prevPreviewRef.current,
+                nextEl: nextPreviewRef.current,
+              }}
               autoplay
               pagination={{
                 clickable: true,
               }}
-              slidesPerView={state.isMobile ? 1 : 3}
-              spaceBetween={state.isMobile ? 8 : 32}
+              slidesPerView={1}
+              spaceBetween={8}
+              breakpoints={{
+                640: {
+                  slidesPerView: 3,
+                  spaceBetween: 32,
+                },
+              }}
               loop
             >
               {[
@@ -381,26 +379,35 @@ const Home: NextPage = () => {
                 preview07Img,
                 preview08Img,
                 preview09Img,
+                preview10Img,
+                preview11Img,
+                preview12Img,
               ].map((img, idx) => (
                 <SwiperSlide
-                  className="w-[300px] py-[84px]"
+                  className="w-[300px] pb-[84px]"
                   key={img.src}
                   onClick={() => {
                     setIsLightbox1Open(true);
                     setLightbox1Idx(idx);
                   }}
                 >
-                  <div className="w-full">
+                  <button className="w-full">
                     <Image
                       src={img}
                       layout="responsive"
                       placeholder="blur"
                     ></Image>
-                  </div>
+                  </button>
                 </SwiperSlide>
               ))}
             </Swiper>
           </div>
+          <button
+            ref={nextPreviewRef}
+            className="hidden sm:block sm:shrink-0 sm:w-[72px]"
+          >
+            <Image src={iconSliderNextImg} layout="responsive" priority></Image>
+          </button>
         </div>
         {isLightbox1Open && (
           <Lightbox
@@ -430,7 +437,7 @@ const Home: NextPage = () => {
       </section>
 
       <section
-        className="container mx-auto mt-[50px] sm:mt-[128px] px-[24px] sm:px-0 pt-[50px]"
+        className="container mx-auto mt-[84px] sm:mt-[128px] px-[24px] sm:px-0 pt-[50px] sm:pt-[120px]"
         id="goal"
       >
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
@@ -561,7 +568,7 @@ const Home: NextPage = () => {
                     <div className="tab sm:h4 mt-[20px]">
                       <Trans i18nKey="subtitle" ns="roadmap"></Trans>
                     </div>
-                    <div className="mt-[32px] space-y-[32px]">
+                    <div className="mt-[32px] space-y-[32px] sm:space-y-[48px]">
                       {[
                         {
                           title: (
@@ -685,7 +692,7 @@ const Home: NextPage = () => {
             </Transition.Root>
           </div>
         </div>
-        <div className="sm:grid sm:grid-cols-2 sm:gap-[32px] mt-[40px] space-y-[40px] sm:space-y-0">
+        <div className="sm:grid sm:grid-cols-2 sm:gap-x-[32px] sm:gap-y-[48px] mt-[40px] space-y-[40px] sm:space-y-0">
           <div>
             <Image src={goal01Img}></Image>
             <h3 className="h4 mt-[32px] uppercase">
@@ -788,46 +795,39 @@ const Home: NextPage = () => {
       </section>
 
       <section
-        className="container mx-auto mt-[50px] sm:mt-[128px] px-[24px] sm:px-0 pt-[50px]"
+        className="container mx-auto mt-[50px] sm:mt-[128px] px-[24px] sm:px-0 pt-[50px] sm:[pt-120px]"
         id="artist"
       >
         <h2 className="h3 font-bold uppercase">Collaborations</h2>
         <div className="h4 mt-[40px]">
           <Trans i18nKey="subtitle" ns="artist"></Trans>
         </div>
-        <div className="sm:flex sm:justify-center sm:items-center mt-[40px]">
-          <div
-            ref={swiper2Ref}
-            className="sm:w-[1100px] mt-[-132px]"
-            onMouseEnter={() => {
-              swiper2Ref.current!.querySelector<HTMLDivElement>(
-                '.swiper-button-next',
-              )!.style!.opacity = '1';
-              swiper2Ref.current!.querySelector<HTMLDivElement>(
-                '.swiper-button-prev',
-              )!.style!.opacity = '1';
-            }}
-            onMouseLeave={() => {
-              if (swiper2Ref === null) {
-                return;
-              }
-              swiper2Ref.current!.querySelector<HTMLDivElement>(
-                '.swiper-button-next',
-              )!.style!.opacity = '0';
-              swiper2Ref.current!.querySelector<HTMLDivElement>(
-                '.swiper-button-prev',
-              )!.style!.opacity = '0';
-            }}
+        <div className="sm:flex sm:justify-center sm:items-center sm:space-x-[20px] mt-[40px]">
+          <button
+            ref={prevArtistRef}
+            className="hidden sm:block sm:shrink-0 sm:w-[72px]"
           >
+            <Image src={iconSliderPrevImg} layout="responsive" priority></Image>
+          </button>
+          <div className="sm:w-[1100px] mb-[-132px]">
             <Swiper
               modules={[Navigation, Autoplay, Pagination]}
-              navigation
+              navigation={{
+                prevEl: prevArtistRef.current,
+                nextEl: nextArtistRef.current,
+              }}
               autoplay
               pagination={{
                 clickable: true,
               }}
-              slidesPerView={state.isMobile ? 1 : 3}
-              spaceBetween={state.isMobile ? 8 : 32}
+              slidesPerView={1}
+              spaceBetween={8}
+              breakpoints={{
+                640: {
+                  slidesPerView: 3,
+                  spaceBetween: 32,
+                },
+              }}
               loop
             >
               {[
@@ -843,10 +843,10 @@ const Home: NextPage = () => {
                 { img: se10Img, name: 'ZHIXIAN' },
               ].map(({ img, name }) => (
                 <SwiperSlide
-                  className="relative w-[300px] py-[132px]"
+                  className="relative w-[300px] pb-[132px]"
                   key={name}
                 >
-                  <div
+                  <button
                     className="w-full"
                     onClick={handleArtistModalOpenBtnClick(name)}
                   >
@@ -855,7 +855,7 @@ const Home: NextPage = () => {
                       layout="responsive"
                       placeholder="blur"
                     ></Image>
-                  </div>
+                  </button>
                   <div className="tab absolute bottom-[84px] w-full text-center">
                     {name}
                   </div>
@@ -863,6 +863,12 @@ const Home: NextPage = () => {
               ))}
             </Swiper>
           </div>
+          <button
+            ref={nextArtistRef}
+            className="hidden sm:block sm:shrink-0 sm:w-[72px]"
+          >
+            <Image src={iconSliderNextImg} layout="responsive" priority></Image>
+          </button>
         </div>
 
         <Transition.Root show={isArtistModalOpen} as={Fragment}>
@@ -941,7 +947,7 @@ const Home: NextPage = () => {
       </section>
 
       <section
-        className="container mx-auto mt-[50px] sm:mt-[128px] px-[24px] sm:px-0 py-[50px]"
+        className="container mx-auto mt-[132px] sm:mt-[128px] px-[24px] sm:px-0 pt-[50px] sm:pt-[120px]"
         id="team"
       >
         <h2 className="h3 font-bold uppercase">Team</h2>
@@ -951,67 +957,84 @@ const Home: NextPage = () => {
               img: team01Img,
               name: 'Chuforreal',
               bio: 'Storyteller',
+              href: 'https://twitter.com/chuforreal',
             },
             {
               img: team02Img,
               name: 'apeinacoupe',
               bio: 'Design and technical captain',
+              href: 'https://twitter.com/apeinacoupe',
             },
             {
               img: team03Img,
               name: 'jannie.oioi',
               bio: 'Art direction and coordination',
+              href: 'https://twitter.com/jannie_oioi',
             },
             {
               img: team04Img,
               name: 'yellow_river',
               bio: 'Solidity Developer',
+              href: '',
             },
             {
               img: team05Img,
               name: 'AshΞAnn',
               bio: 'CGI Hobbyist',
+              href: 'https://twitter.com/_asheannart',
             },
             {
               img: team06Img,
               name: 'jyjinn',
               bio: 'Pipeline TD',
+              href: 'https://twitter.com/jiayujinn',
             },
             {
               img: team07Img,
               name: 'PxtrickPin',
               bio: 'CG Artist',
+              href: 'https://twitter.com/pxtrickpin',
             },
             {
               img: team08Img,
               name: 'harry830622',
               bio: 'Solidity / Web Developer',
+              href: 'https://y.at/unicorn.laptop.rocket',
             },
             {
               img: team09Img,
               name: 'Vera',
               bio: 'Community Manager',
+              href: 'https://twitter.com/VeraYunLee',
             },
             {
               img: team10Img,
               name: 'wenpanghsiang',
               bio: 'Brand Designer',
+              href: 'https://twitter.com/wenpanghsiang',
             },
             {
               img: team11Img,
               name: 'zivshock',
               bio: 'Marketing Lead',
+              href: 'https://twitter.com/zivshock',
             },
             {
               img: team12Img,
               name: 'Bitman',
               bio: 'Community Manager',
+              href: 'https://twitter.com/Bitmen_',
             },
-          ].map(({ img, name, bio }) => (
+          ].map(({ img, name, bio, href }) => (
             <div key={name} className="sm:grid sm:grid-cols-3 sm:gap-[32px]">
-              <div className="w-full sm:col-span-1">
+              <a
+                className="button cursor-pointer no-underline w-full sm:col-span-1"
+                href={href}
+                target="_blank"
+                rel="noreferrer"
+              >
                 <Image src={img} layout="responsive" placeholder="blur"></Image>
-              </div>
+              </a>
               <div className="sm:col-span-2">
                 <h4
                   className={`${
@@ -1032,7 +1055,7 @@ const Home: NextPage = () => {
           ))}
         </div>
       </section>
-      <div className="w-full border-b"></div>
+      <div className="w-full mt-[50px] sm:mt-[120px] border-b"></div>
     </Layout>
   );
 };
