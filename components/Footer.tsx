@@ -20,47 +20,77 @@ const Footer = ({ isInMenu = false }: Props) => (
     }`}
   >
     <div>
-      <div className="tab mb-[8px] uppercase">Links</div>
-      <a className="block py-[24px] text-[16px] font-light leading-[16px] tracking-[0.8px]">
-        ➔ Smart Contract 智能合約
-      </a>
-      <a className="block py-[24px] text-[16px] font-light leading-[16px] tracking-[0.8px]">
-        ➔ Wasted Wild Opensea 荒野購買平台
-      </a>
-      <a className="block py-[24px] text-[16px] font-light leading-[16px] tracking-[0.8px] whitespace-nowrap">
-        ➔ Absurd Arboretum Website 荒謬植物園
-      </a>
-      <a className="block py-[24px] text-[16px] font-light leading-[16px] tracking-[0.8px] opacity-30">
-        ➔ How To Mint 購買教學
-      </a>
+      <div className="tab uppercase">Links</div>
+      <div className="mt-[32px] space-y-[48px]">
+        {[
+          {
+            text: '➔ Smart Contract 智能合約',
+            href: 'https://etherscan.io/address/0x9A894BFED8DEE52ADB437b897eCb65FD2052BE46',
+          },
+          {
+            text: '➔ Wasted Wild Opensea 荒野購買平台',
+            href: 'https://opensea.io/collection/wastedwild',
+          },
+          {
+            text: '➔ Absurd Arboretum Website 荒謬植物園',
+            href: 'https://ab-ar.art/',
+          },
+        ].map(({ text, href }) => (
+          <a
+            className="block text-[16px] font-light leading-[16px] tracking-[0.8px] no-underline"
+            key={href}
+            href={href}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {text}
+          </a>
+        ))}
+        <div className="block text-[16px] font-light leading-[16px] tracking-[0.8px] opacity-30">
+          ➔ How To Mint 購買教學
+        </div>
+      </div>
     </div>
     <div
       className={`flex flex-col sm:justify-between ${
-        isInMenu ? 'pt-[48px]' : 'pt-[61px] sm:pt-[unset]'
+        isInMenu ? 'mt-[48px]' : 'mt-[61px] sm:mt-[unset]'
       }`}
     >
       <div className="flex justify-between items-center sm:space-x-[40px]">
-        <div className="w-[32px]">
-          <Image src={iconMediumImg} layout="responsive"></Image>
-        </div>
-        <div className="w-[32px]">
-          <Image src={iconTwitterImg} layout="responsive"></Image>
-        </div>
-        <div className="w-[32px]">
-          <Image src={iconInstagramImg} layout="responsive"></Image>
-        </div>
-        <div className="w-[32px]">
-          <Image src={iconDiscordImg} layout="responsive"></Image>
-        </div>
-        <div className="w-[32px]">
-          <Image src={iconOpenseaImg} layout="responsive"></Image>
-        </div>
+        {[
+          {
+            iconImg: iconMediumImg,
+            href: 'https://medium.com/@capsulevault',
+          },
+          {
+            iconImg: iconTwitterImg,
+            href: 'https://twitter.com/wastedwild_',
+          },
+          {
+            iconImg: iconInstagramImg,
+            href: 'https://www.instagram.com/capsulevault/',
+          },
+          {
+            iconImg: iconDiscordImg,
+            href: 'https://discord.gg/capsulevault',
+          },
+          {
+            iconImg: iconOpenseaImg,
+            href: 'https://opensea.io/collection/wastedwild',
+          },
+        ].map(({ iconImg, href }) => (
+          <a
+            className="w-[32px]"
+            key={href}
+            href={href}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Image src={iconImg} layout="responsive"></Image>
+          </a>
+        ))}
       </div>
-      <p
-        className={`mt-[61px] sm:pb-[24px] text-center ${
-          isInMenu ? '' : 'sm:text-right'
-        }`}
-      >
+      <p className={`mt-[61px] text-center ${isInMenu ? '' : 'sm:text-right'}`}>
         Copyright © 2022 Capsule Vault.
       </p>
     </div>

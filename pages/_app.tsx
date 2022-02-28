@@ -1,6 +1,7 @@
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import React, { useReducer, useEffect, useRef } from 'react';
+import { appWithTranslation } from 'next-i18next';
 import Onboard from 'bnc-onboard';
 import { ethers } from 'ethers';
 
@@ -239,4 +240,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp);

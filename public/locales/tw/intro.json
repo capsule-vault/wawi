@@ -1,0 +1,4 @@
+{
+  "description": "鑄造 Wasted Wild 荒野 NFT 的同時也在世界上種下一棵樹木。<br />透過保護瀕危動物和其棲地讓自然得以重生。<br />目前 Capsule Vault 社群已經透過 NFT 在全世界種下超過 16,000 棵樹。<br /><br />每一隻荒野動物（Wildlings）的外型與配件都是獨一無二透過全3D高畫質精心製作，限量 4200隻，並以 0.05 ETH 為售價公平發售。Wasted Wild NFT 的持有者除了擁有高畫質的圖像以外，同時對這些荒野動物的數位資產具有完全的商業使用權力。",
+  "mint": "Mint Wildlings - 每隻售價 {{price}}，每筆交易最多購買 {{maxNumTokens}} 隻。"
+}

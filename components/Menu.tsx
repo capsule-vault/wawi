@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useContext, Fragment } from 'react';
 import { Transition, Dialog } from '@headlessui/react';
 
@@ -20,6 +22,8 @@ const Menu = ({
   onOpenHolderBtnClick,
 }: Props) => {
   const { state } = useContext(Context);
+
+  const router = useRouter();
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -54,21 +58,70 @@ const Menu = ({
             <div className="flex flex-col justify-between min-h-screen">
               <div>
                 <div className="px-[24px] py-[32px] border-b">
-                  <div className="tab mb-[24px]">Introduction 介紹</div>
-                  <p className="uppercase">Mint Now</p>
+                  <Link href="/#">
+                    <a
+                      className="tab block mb-[24px] no-underline"
+                      onClick={onCloseBtnClick}
+                    >
+                      Introduction 介紹
+                    </a>
+                  </Link>
+                  <Link href="/#mint">
+                    <a
+                      className="p block uppercase no-underline"
+                      onClick={onCloseBtnClick}
+                    >
+                      Mint Now
+                    </a>
+                  </Link>
                 </div>
                 <div className="px-[24px] py-[32px] border-b">
-                  <div className="tab mb-[24px]">Goal 目標</div>
+                  <Link href="/#goal">
+                    <a
+                      className="tab block mb-[24px] no-underline"
+                      onClick={onCloseBtnClick}
+                    >
+                      Core Values 核心價值
+                    </a>
+                  </Link>
                   <div className="space-y-[16px]">
-                    <p className="uppercase">Story</p>
-                    <p className="uppercase">Roadmap</p>
+                    <Link href="/#story">
+                      <a
+                        className="p block uppercase no-underline"
+                        onClick={onCloseBtnClick}
+                      >
+                        Story
+                      </a>
+                    </Link>
+                    <Link href="/#roadmap">
+                      <a
+                        className="p block uppercase no-underline"
+                        onClick={onCloseBtnClick}
+                      >
+                        Roadmap
+                      </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="px-[24px] py-[32px] border-b">
-                  <div className="tab">Artist 藝術家</div>
+                  <Link href="/#artist">
+                    <a
+                      className="tab block no-underline"
+                      onClick={onCloseBtnClick}
+                    >
+                      Artist 藝術家
+                    </a>
+                  </Link>
                 </div>
                 <div className="px-[24px] py-[32px] border-b">
-                  <div className="tab">Team 團隊</div>
+                  <Link href="/#team">
+                    <a
+                      className="tab block no-underline"
+                      onClick={onCloseBtnClick}
+                    >
+                      Team 團隊
+                    </a>
+                  </Link>
                 </div>
                 {state.isMobile && (
                   <div className="px-[24px] py-[34px] space-y-[24px]">
@@ -81,9 +134,14 @@ const Menu = ({
                     >
                       Existing Holders
                     </button>
-                    <button className="flex justify-center items-center w-full h-[48px] border rounded-full">
-                      English / 繁中
-                    </button>
+                    <Link
+                      href="/"
+                      locale={router.locale === 'en' ? 'tw' : 'en'}
+                    >
+                      <button className="flex justify-center items-center w-full h-[48px] border rounded-full">
+                        English / 繁中
+                      </button>
+                    </Link>
                   </div>
                 )}
               </div>

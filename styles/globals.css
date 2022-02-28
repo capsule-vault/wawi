@@ -19,15 +19,15 @@
   .h4 {
     @apply text-[24px] font-medium leading-[32px] tracking-[1px];
   }
-  p {
+  p, .p {
     @apply text-[16px] font-light leading-[24px] tracking-[0.8px] text-justify;
   }
 
-  button, .tab {
+  button, .button, .tab {
     @apply text-[16px] font-medium leading-[24px] tracking-[0.8px];
   }
 
-  button {
+  button, .button {
     @apply hover:opacity-70 disabled:opacity-30;
   }
 
@@ -36,6 +36,10 @@
   }
   .caption2 {
     @apply text-[10px] font-light leading-[22px] tracking-[0.2px];
+  }
+
+  a {
+    @apply underline;
   }
 }
 

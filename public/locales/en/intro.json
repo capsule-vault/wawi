@@ -1,0 +1,4 @@
+{
+  "description": "Mint a Wasted Wild NFT and plant a tree in the physical world. Restore the wild by protecting endangered species and habitats. So far We have planted 16000 trees with the Capsule Vault community. Capsule Vault team proudly presents Wasted Wild, a collection of 4200 imaginary beings, while every single Wildling is unique, highly detailed with a set of meticulously designed traits, all Wildlings are fairly distributed, each costing 0.05 ETH to purchase. You, the pioneers in the Wild, will not only receive the high-quality images but also be granted full commercial rights to these assets they own.",
+  "mint": "Mint Wildlings - {{price}} ETH per token, {{maxNumTokens}} max per tx."
+}

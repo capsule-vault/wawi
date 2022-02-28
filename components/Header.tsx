@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useState, useCallback, useContext, Fragment } from 'react';
 import { Transition, Dialog, Listbox } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
@@ -13,6 +15,8 @@ import iconCloseImg from '../public/icons/close.png';
 
 const Header = () => {
   const { state } = useContext(Context);
+
+  const router = useRouter();
 
   const price = 0.02;
   const maxNumMints = 3;
@@ -61,9 +65,11 @@ const Header = () => {
             >
               Existing Holders
             </button>
-            <button className="flex justify-center items-center w-[208px] border-l">
-              English / 繁中
-            </button>
+            <Link href="/" locale={router.locale === 'en' ? 'tw' : 'en'}>
+              <button className="flex justify-center items-center w-[208px] border-l">
+                English / 繁中
+              </button>
+            </Link>
           </>
         )}
         <div className="flex justify-center items-center w-[88px] sm:w-[208px] h-full border-l">
@@ -183,4 +189,5 @@ const Header = () => {
     </header>
   );
 };
+
 export default Header;

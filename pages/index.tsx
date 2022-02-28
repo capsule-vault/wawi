@@ -11,6 +11,8 @@ import React, {
   ReactNode,
 } from 'react';
 import { Transition, Dialog } from '@headlessui/react';
+import { Trans } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Navigation, Autoplay, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Lightbox from 'react-image-lightbox';
@@ -96,6 +98,8 @@ type ArtistByName = {
   [key: string]: {
     name: string;
     description: ReactNode;
+    ig: string;
+    twitter: string;
     image: StaticImageData;
   };
 };
@@ -169,142 +173,90 @@ const Home: NextPage = () => {
       aka_chang: {
         name: 'aka_chang',
         description: (
-          <p>
-            {`As a light artist, aka_chang focuses on the textures and the senses of the temperature from multiple lighting materials. Use the ray of light materials to construct the sculpture that sites in space and interacts with the sound. Early entry into the visual arts field as a VJ, he is the founder of the "muse-whisper VJ Team" and the first VJ info platform written by Mandarin:" Zuirens." He is an important promoter of the rise of Taiwan's contemporary VJ culture.`}
-          </p>
+          <Trans i18nKey="aka_chang.description" ns="artist"></Trans>
         ),
+        ig: 'https://www.instagram.com/aka_chang/',
+        twitter: 'https://twitter.com/changfunju',
         image: artist01Img,
       },
       CACHOU: {
         name: 'CACHOU',
-        description: (
-          <p>
-            We will reveal the story in our Discord’s #artist-spotlight channel
-            soon.
-          </p>
-        ),
+        description: <Trans i18nKey="CACHOU.description" ns="artist"></Trans>,
         image: artist02Img,
+        ig: 'https://www.instagram.com/c.a.chou/',
+        twitter: 'https://twitter.com/cachou1993',
       },
       CL_SOUL_: {
         name: 'CL_SOUL_',
-        description: (
-          <p>
-            We will reveal the story in our Discord’s #artist-spotlight channel
-            soon.
-          </p>
-        ),
+        description: <Trans i18nKey="CL_SOUL_.description" ns="artist"></Trans>,
         image: artist03Img,
+        ig: 'https://www.instagram.com/cl_soul_/',
+        twitter: 'https://twitter.com/CL_SOUL_',
       },
       equinoz: {
         name: 'equinoz',
-        description: (
-          <>
-            <p>
-              equinoz is a Taiwanese creator with a distinctive Sci-Fi style,
-              often seen in a lot of his characters and landscape works, he has
-              been an iconic explorer among his peers. Besides constantly
-              creating astonishing 3D high-res characters, equinoz is also
-              talented in delivering the full picture to express his ideology
-              around the Metaverse concept. As equinoz states in the Visible
-              Future collection descrption, “My works are all about the mixture
-              of Culture, technology, bright, elegant, and a little futuristic
-              crazy nonsense, those are the symbols in my art, and it is the
-              future I am eager for.”
-            </p>
-            <br />
-            <p>
-              equinoz is constantly exploring the possibilities around
-              co-creations. In 2021, his collaboration with RTFKT Studios for
-              the Capsule Space Drip collection made his name appears to the
-              greater NFT lovers. equinoz is currently building his PFP project
-              — Project E within the Elysium System.
-            </p>
-            <br />
-            <p>
-              equinoz’s Special Edition 1/1 NFT It is Capsule Vault’s honor to
-              have equinoz as our @creature collaborator to create three special
-              editions. These works wish to demonstrate the connection between
-              cyborg-like biomechatronic features and death symbols in the
-              Wasted Wild collection.
-            </p>
-            <br />
-            <p>
-              {`"I added elements such as human skulls and death in the three 1/1s I created for the collection and also incorporated animal, human, and mechanical parts to symbolize that the fate of these species and the fate of ours are closely intertwined. However, the blue crystals are there to remind us of the scarce and purely natural resources we still have left."`}
-            </p>
-          </>
-        ),
+        description: <Trans i18nKey="equinoz.description" ns="artist"></Trans>,
         image: artist04Img,
+        ig: 'https://www.instagram.com/equ1noz/',
+        twitter: 'https://twitter.com/equ1noz',
       },
       'Jona Hsu': {
         name: 'Jona Hsu',
-        description: (
-          <p>
-            We will reveal the story in our Discord’s #artist-spotlight channel
-            soon.
-          </p>
-        ),
+        description: <Trans i18nKey="Jona Hsu.description" ns="artist"></Trans>,
         image: artist05Img,
+        ig: 'https://www.instagram.com/jona.hsu/',
+        twitter: 'https://twitter.com/Jona_HsuVisual',
       },
       KhooKG: {
         name: 'KhooKG',
-        description: (
-          <p>
-            We will reveal the story in our Discord’s #artist-spotlight channel
-            soon.
-          </p>
-        ),
+        description: <Trans i18nKey="KhooKG.description" ns="artist"></Trans>,
         image: artist06Img,
+        ig: 'https://www.instagram.com/khookhaikun/',
+        twitter: 'https://twitter.com/khookhaikun',
       },
       'Toma Tang': {
         name: 'Toma Tang',
         description: (
-          <p>
-            We will reveal the story in our Discord’s #artist-spotlight channel
-            soon.
-          </p>
+          <Trans i18nKey="Toma Tang.description" ns="artist"></Trans>
         ),
         image: artist07Img,
+        ig: 'https://www.instagram.com/tomatotoyota01/',
+        twitter: '',
       },
       'Ray Han': {
         name: 'Ray Han',
-        description: (
-          <p>
-            We will reveal the story in our Discord’s #artist-spotlight channel
-            soon.
-          </p>
-        ),
+        description: <Trans i18nKey="Ray Han.description" ns="artist"></Trans>,
         image: artist08Img,
+        ig: 'https://www.instagram.com/fromraytothebay/',
+        twitter: '',
       },
       'Sic Lee': {
         name: 'Sic Lee',
         description: (
-          <>
-            <p>
-              {`Sic Lee is an illustrator / tattoo artist based in Taiwan, a member of the "Moon Face Dragon Temple" creative team (IG: mfdt606). He adopts simplistic lines and dynamic colors to create a distinguished style and often spices up his work with a bit of dark humor and sarcasm.`}
-            </p>
-            <br />
-            <p>
-              {`Sic's Special Edition 1/1 Dodo “I have no idea what NFT truly is when Capsule Vault approached me for collaboration. I thought this was just a typical collaboration. After I acknowledged the NFT community that Capsule Vault team is trying to establish, all of a sudden I felt like I am down in the rabbit hole. That's when I came up with this human in disguise who is trying to survive in the Wasted Wild world. I find this character shares a lot of similarities with myself, a traditional creator entering the NFT world.”`}
-            </p>
-            <br />
-            <p>
-              Sic is working on the collaboration with artist Raimochi from Rug
-              Pull Frens collection. You can find out more info about this
-              raffle in Rug Pull Frens Discord server!
-            </p>
-          </>
+          <Trans
+            i18nKey="Sic Lee.description"
+            ns="artist"
+            components={{
+              aMoon: (
+                <a
+                  href="https://www.instagram.com/mfdt606/"
+                  target="_blank"
+                  rel="noreferrer"
+                ></a>
+              ),
+            }}
+          ></Trans>
         ),
         image: artist09Img,
+        ig: 'https://www.instagram.com/sic_lee/',
+        twitter: 'https://twitter.com/Sic_Lee',
       },
       ZHIXIAN: {
         name: 'ZHIXIAN',
-        description: (
-          <p>
-            We will reveal the story in our Discord’s #artist-spotlight channel
-            soon.
-          </p>
-        ),
+        description: <Trans i18nKey="ZHIXIAN.description" ns="artist"></Trans>,
         image: artist10Img,
+        ig: 'https://www.instagram.com/goodboixian/',
+        twitter: 'https://twitter.com/goodboixian',
       },
     }),
     [],
@@ -312,7 +264,10 @@ const Home: NextPage = () => {
 
   return (
     <Layout>
-      <section className="container mx-auto sm:flex sm:mt-[128px] px-[24px]">
+      <section
+        className="container mx-auto sm:flex sm:mt-[128px] px-[24px]"
+        id="mint"
+      >
         <div className="sm:flex-1 mt-[24px] sm:mt-[unset] sm:px-[48px] bg-primary]">
           <video src="/intro.mp4" muted autoPlay loop playsInline></video>
         </div>
@@ -324,15 +279,7 @@ const Home: NextPage = () => {
             Wasted Wild NFTs By Capsule Vault
           </div>
           <p className="mt-[32px]">
-            Mint a Wasted Wild NFT and plant a tree in the physical world.
-            Restore the wild by protecting endangered species and habitats. So
-            far We have planted 16000 trees with the Capsule Vault community.
-            Capsule Vault team proudly presents Wasted Wild, a collection of
-            4200 imaginary beings, while every single Wildling is unique, highly
-            detailed with a set of meticulously designed traits, all Wildlings
-            are fairly distributed, each costing 0.05 ETH to purchase. You, the
-            pioneers in the Wild, will not only receive the high-quality images
-            but also be granted full commercial rights to these assets they own.
+            <Trans i18nKey="description" ns="intro"></Trans>
           </p>
           <div className="border sm:border-0 mt-[32px] p-[24px] pb-[32px] sm:p-0">
             <div className="flex flex-col sm:flex-row justify-center items-center sm:py-[24px] sm:border">
@@ -367,7 +314,11 @@ const Home: NextPage = () => {
               </button>
             </div>
             <p className="mt-[24px]">
-              Mint Wildlings - {price} ETH per token, {maxNumTokens} max per tx.
+              <Trans
+                i18nKey="mint"
+                ns="intro"
+                values={{ price, maxNumTokens }}
+              ></Trans>
             </p>
           </div>
         </div>
@@ -376,9 +327,14 @@ const Home: NextPage = () => {
       <section className="container mx-auto mt-[50px] sm:mt-[128px] px-[24px] sm:px-0 pt-[50px]">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
           <h2 className="h3 font-bold uppercase">Wasted Wild NFT</h2>
-          <button className="flex justify-center items-center w-full sm:w-[268px] h-[48px] mt-[24px] sm:mt-0 border rounded-full">
+          <a
+            className="button flex justify-center items-center w-full sm:w-[268px] h-[48px] mt-[24px] sm:mt-0 border rounded-full no-underline"
+            href="https://opensea.io/collection/wastedwild"
+            target="_blank"
+            rel="noreferrer"
+          >
             Opensea
-          </button>
+          </a>
         </div>
         <div className="sm:flex sm:justify-center sm:items-center mt-[40px]">
           <div
@@ -473,9 +429,12 @@ const Home: NextPage = () => {
         )}
       </section>
 
-      <section className="container mx-auto mt-[50px] sm:mt-[128px] px-[24px] sm:px-0 pt-[50px]">
+      <section
+        className="container mx-auto mt-[50px] sm:mt-[128px] px-[24px] sm:px-0 pt-[50px]"
+        id="goal"
+      >
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-          <h2 className="h3 font-bold uppercase">Goal</h2>
+          <h2 className="h3 font-bold uppercase">Core Values</h2>
           <div className="flex flex-col sm:flex-row sm:space-x-[32px]">
             <button
               className="flex justify-center items-center w-full sm:w-[268px] h-[48px] mt-[24px] sm:mt-0 border rounded-full"
@@ -509,7 +468,10 @@ const Home: NextPage = () => {
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <section className="relative max-h-screen sm:max-h-[80vh] sm:container sm:mx-auto sm:top-1/2 sm:transform sm:-translate-y-1/2 px-[24px] sm:px-0 pt-[30px] pb-[50px] overflow-y-auto">
+                  <section
+                    className="relative max-h-screen sm:max-h-[80vh] sm:container sm:mx-auto sm:top-1/2 sm:transform sm:-translate-y-1/2 px-[24px] sm:px-0 pt-[30px] pb-[50px] overflow-y-auto"
+                    id="story"
+                  >
                     <div className="flex justify-between items-center">
                       <h3 className="h3 sm:h1 uppercase font-bold">Story</h3>
                       <button className="w-[32px]" onClick={closeStoryModal}>
@@ -530,38 +492,19 @@ const Home: NextPage = () => {
                       </div>
                       <div className="mt-[32px] sm:mt-0 sm:mr-[48px]">
                         <p>
-                          Capsule Vault proudly presents Wasted Wild, a
-                          collection of 4200 imaginary beings thriving in the
-                          post-human age. Preceded by Absurd Arboretum, the
-                          project inherits and embodies the core ethos of
-                          becoming an integral part of our ecology by planting
-                          trees with initial primary sales and with each
-                          secondary sale continuously.
-                        </p>
-                        <br />
-                        <p>
-                          These procedurally generated life forms are not only
-                          digital, non-fungible tokens living on the Ethereum
-                          blockchain, stored as ERC-721 tokens and materialized
-                          as high-resolution images crafted with sophisticated
-                          techniques, but also haunting caricatures of their
-                          endangered ancestors living in the physical world with
-                          us today. These evolved descendants remind humans of
-                          the looming tragedy if we continue to ignore the alert
-                          Nature has been signaling us.
-                        </p>
-                        <br />
-                        <p>
-                          The mutated Wildlings in Wasted Wild are both victims
-                          and deities in a quasi-dystopian world that has become
-                          increasingly intolerable for pure biological organisms
-                          that we were familiar with. They have adapted to live
-                          in undesirable conditions filled with waste, the
-                          majority of which has been produced by human
-                          activities and post-industrial civilizations; a lot of
-                          these creatures have even developed varying levels of
-                          cyborg-like biomechatronic features to augment their
-                          daily lives.
+                          <Trans
+                            i18nKey="description"
+                            ns="story"
+                            components={{
+                              aAbar: (
+                                <a
+                                  href="https://ab-ar.art/"
+                                  target="_blank"
+                                  rel="noreferrer"
+                                ></a>
+                              ),
+                            }}
+                          ></Trans>
                         </p>
                       </div>
                     </div>
@@ -601,7 +544,10 @@ const Home: NextPage = () => {
                   leaveFrom="opacity-100 scale-100"
                   leaveTo="opacity-0 scale-95"
                 >
-                  <section className="relative max-h-screen sm:max-h-[80vh] sm:container sm:mx-auto sm:top-1/2 sm:transform sm:-translate-y-1/2 px-[24px] sm:px-0 pt-[30px] pb-[50px] overflow-y-auto">
+                  <section
+                    className="relative max-h-screen sm:max-h-[80vh] sm:container sm:mx-auto sm:top-1/2 sm:transform sm:-translate-y-1/2 px-[24px] sm:px-0 pt-[30px] pb-[50px] overflow-y-auto"
+                    id="roadmap"
+                  >
                     <div className="flex justify-between items-center">
                       <h3 className="h3 sm:h1 uppercase font-bold">Roadmap</h3>
                       <button className="w-[32px]" onClick={closeRoadmapModal}>
@@ -613,136 +559,126 @@ const Home: NextPage = () => {
                       </button>
                     </div>
                     <div className="tab sm:h4 mt-[20px]">
-                      Welcome to the Wasted Wild ROADMAP ! Like Absurd Arboretum
-                      and the epic BONFIRE Festival that followed, we have many
-                      exciting giveaways, events, and charities coming up for
-                      Wasted Wild. All three projects are parts of one big story
-                      in the Capsule Vault metaverse.
+                      <Trans i18nKey="subtitle" ns="roadmap"></Trans>
                     </div>
-                    {[
-                      {
-                        title: `11% Physical Manifestation`,
-                        description: (
-                          <>
-                            <p>
-                              Continuing the tradition to manifest our tokens
-                              both digitally and physically.
-                            </p>
-                            <br />
-                            <p>
-                              • Holders of 5 or more Wildlings will receive 3D
-                              printing sculpture!
-                              <br />• Special edition LARGE 3D prints raffle for
-                              all current holders ! (1 NFT = 1 entry)
-                            </p>
-                          </>
-                        ),
-                        image: roadmap01Img,
-                      },
-                      {
-                        title: `22% Special Edition Reveal`,
-                        description: (
-                          <>
-                            <p>
-                              24 Special Artist Editions from 11 Top-Tier
-                              Artists will be revealed with exclusive raffles
-                              for all Wildling holders.
-                            </p>
-                            <br />
-                            <p>
-                              Special Edition holders will have exclusive
-                              utilities in the future.
-                            </p>
-                          </>
-                        ),
-                        image: roadmap02Img,
-                      },
-                      {
-                        title: `55% Capsule Vault Dao`,
-                        description: (
-                          <>
-                            <p>
-                              Establish a community-owned Capsule Vault DAO to
-                              partner and support projects with sustainability
-                              missions!
-                            </p>
-                            <br />
-                            <p>More details to be revealed …</p>
-                          </>
-                        ),
-                        image: roadmap03Img,
-                      },
-                      {
-                        title: `66% Adopt A Rhino`,
-                        description: (
-                          <>
-                            <p>
-                              As we continue to plant trees, with Wa-Wi, we will
-                              dive into the protection of wildlife, too!
-                            </p>
-                            <br />
-                            <p>
-                              The contribution will be recurring with periodic
-                              updates on our Rhino which will be shared with the
-                              community. As technology advances, we should all
-                              utilize it to not only create innovative work and
-                              beautiful art but also contribute to important
-                              causes such as improving the environment and
-                              ecology.
-                            </p>
-                          </>
-                        ),
-                        image: roadmap04Img,
-                      },
-                      {
-                        title: `88% Into The Metaverse`,
-                        description: (
-                          <>
-                            <p>
-                              Assets Reveal for either Decentraland or The
-                              Sandbox!
-                            </p>
-                            <br />
-                            <p>
-                              {`As all of the images are first meticulously modeled, procedurally generated, and rendered in 3D, our assets may be fed into the metaverse quite well, some tweaks would of course be required, given the different requirements and standards of the various platforms, but we're on it!`}
-                            </p>
-                          </>
-                        ),
-                        image: roadmap05Img,
-                      },
-                      {
-                        title: `100% Wasted Evolution`,
-                        description: (
-                          <>
-                            <p>BONFIRE Festival Part 2 to be announced ...</p>
-                            <br />
-                            <p>
-                              Various activities, airdrops, and tokenomics will
-                              ensue, combined with the charity component of the
-                              project!
-                            </p>
-                          </>
-                        ),
-                        image: roadmap06Img,
-                      },
-                    ].map(({ title, description, image }) => (
-                      <div
-                        className="flex flex-col sm:flex-row mt-[32px]"
-                        key={title}
-                      >
-                        <div className="sm:shrink-0 w-full sm:w-[168px]">
-                          <Image
-                            src={image}
-                            layout="responsive"
-                            placeholder="blur"
-                          ></Image>
+                    <div className="mt-[32px] space-y-[32px]">
+                      {[
+                        {
+                          title: (
+                            <Trans i18nKey="01.title" ns="roadmap"></Trans>
+                          ),
+                          description: (
+                            <Trans
+                              i18nKey="01.description"
+                              ns="roadmap"
+                            ></Trans>
+                          ),
+                          image: roadmap01Img,
+                        },
+                        {
+                          title: (
+                            <Trans i18nKey="02.title" ns="roadmap"></Trans>
+                          ),
+                          description: (
+                            <Trans
+                              i18nKey="02.description"
+                              ns="roadmap"
+                            ></Trans>
+                          ),
+                          image: roadmap02Img,
+                        },
+                        {
+                          title: (
+                            <Trans i18nKey="03.title" ns="roadmap"></Trans>
+                          ),
+                          description: (
+                            <Trans
+                              i18nKey="03.description"
+                              ns="roadmap"
+                            ></Trans>
+                          ),
+                          image: roadmap03Img,
+                        },
+                        {
+                          title: (
+                            <Trans i18nKey="04.title" ns="roadmap"></Trans>
+                          ),
+                          description: (
+                            <Trans
+                              i18nKey="04.description"
+                              ns="roadmap"
+                            ></Trans>
+                          ),
+                          image: roadmap04Img,
+                        },
+                        {
+                          title: (
+                            <Trans i18nKey="05.title" ns="roadmap"></Trans>
+                          ),
+                          description: (
+                            <Trans
+                              i18nKey="05.description"
+                              ns="roadmap"
+                              components={{
+                                aDl: (
+                                  <a
+                                    href="https://decentraland.org/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                  ></a>
+                                ),
+                                aSand: (
+                                  <a
+                                    href="https://www.sandbox.game/en/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                  ></a>
+                                ),
+                              }}
+                            ></Trans>
+                          ),
+                          image: roadmap05Img,
+                        },
+                        {
+                          title: (
+                            <Trans i18nKey="06.title" ns="roadmap"></Trans>
+                          ),
+                          description: (
+                            <Trans
+                              i18nKey="06.description"
+                              ns="roadmap"
+                              components={{
+                                aBon: (
+                                  <a
+                                    href="https://festival.ab-ar.art/"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                  ></a>
+                                ),
+                              }}
+                            ></Trans>
+                          ),
+                          image: roadmap06Img,
+                        },
+                      ].map(({ title, description, image }) => (
+                        <div
+                          className="flex flex-col sm:flex-row space-y-[32px] sm:space-y-0 sm:space-x-[32px]"
+                          key={image.src}
+                        >
+                          <div className="sm:shrink-0 w-full sm:w-[168px]">
+                            <Image
+                              src={image}
+                              layout="responsive"
+                              placeholder="blur"
+                            ></Image>
+                          </div>
+                          <div className="space-y-[24px]">
+                            <h4 className="h4 sm:h3 text-[22px]">{title}</h4>
+                            <p>{description}</p>
+                          </div>
                         </div>
-                        <div className="mt-[32px] sm:mt-0 sm:ml-[32px]">
-                          <h4 className="h4 sm:h3 text-[22px]">{title}</h4>
-                          <div className="mt-[24px]">{description}</div>
-                        </div>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </section>
                 </Transition.Child>
               </Dialog>
@@ -752,54 +688,112 @@ const Home: NextPage = () => {
         <div className="sm:grid sm:grid-cols-2 sm:gap-[32px] mt-[40px] space-y-[40px] sm:space-y-0">
           <div>
             <Image src={goal01Img}></Image>
-            <h3 className="h4 mt-[32px] uppercase">An Unique Community</h3>
+            <h3 className="h4 mt-[32px] uppercase">
+              <Trans i18nKey="01.title" ns="goal"></Trans>
+            </h3>
             <p className="mt-[24px]">
-              Continue to grow our amazing community that has started and been
-              flourishing since June 2021 with Chapter 1 of the Capsule Vault
-              Trilogy : Absurd Arboretum. Now we gather both tree lovers and
-              animal lovers in one place!
+              <Trans
+                i18nKey="01.description"
+                ns="goal"
+                components={{
+                  aAbar: (
+                    <a
+                      href="https://ab-ar.art/"
+                      target="_blank"
+                      rel="noreferrer"
+                    ></a>
+                  ),
+                }}
+              ></Trans>
             </p>
           </div>
           <div>
             <Image src={goal02Img}></Image>
-            <h3 className="h4 mt-[32px] uppercase">Physical Plus Digital</h3>
+            <h3 className="h4 mt-[32px] uppercase">
+              <Trans i18nKey="02.title" ns="goal"></Trans>
+            </h3>
             <p className="mt-[24px]">
-              Continue the tradition to manifest our tokens both digitally and
-              physically. There will be giveaways to early supporters like how
-              we gave away Infinite Objects in Absurd Arboretum. We are also
-              preparing for assets deployable in the Metaverse!
+              <Trans
+                i18nKey="02.description"
+                ns="goal"
+                components={{
+                  aIo: (
+                    <a
+                      href="https://infiniteobjects.com/"
+                      target="_blank"
+                      rel="noreferrer"
+                    ></a>
+                  ),
+                }}
+              ></Trans>
             </p>
           </div>
           <div>
             <Image src={goal03Img}></Image>
-            <h3 className="h4 mt-[32px] uppercase">Platform & Collabs</h3>
+            <h3 className="h4 mt-[32px] uppercase">
+              <Trans i18nKey="03.title" ns="goal"></Trans>
+            </h3>
             <p className="mt-[24px]">
-              With Ab-Ar, we had the Venation and the Fireworks where we worked
-              with artists beyond our core team; and in Wa-Wi, there are even
-              more collaborations this time, and we will gradually reveal all
-              the surprises!
+              <Trans
+                i18nKey="03.description"
+                ns="goal"
+                components={{
+                  aVen: (
+                    <a
+                      href="https://ab-ar.art/exclusive/"
+                      target="_blank"
+                      rel="noreferrer"
+                    ></a>
+                  ),
+                  aFire: (
+                    <a
+                      href="https://opensea.io/collection/arbofireworks"
+                      target="_blank"
+                      rel="noreferrer"
+                    ></a>
+                  ),
+                }}
+              ></Trans>
             </p>
           </div>
           <div>
             <Image src={goal04Img}></Image>
             <h3 className="h4 mt-[32px] uppercase">
-              Commitment To the Environment
+              <Trans i18nKey="04.title" ns="goal"></Trans>
             </h3>
             <p className="mt-[24px]">
-              Donate to a community-selected NGO dedicated to the protection of
-              wildlife and the restoration of habitats, such as Re:wild or
-              WILD.org. As technology advances, we should all utilize it to not
-              only create innovative work and beautiful art but also contribute
-              to important causes for the environment and ecology.
+              <Trans
+                i18nKey="04.description"
+                ns="goal"
+                components={{
+                  aRe: (
+                    <a
+                      href="https://www.rewild.org/"
+                      target="_blank"
+                      rel="noreferrer"
+                    ></a>
+                  ),
+                  aWild: (
+                    <a
+                      href="https://wild.org/"
+                      target="_blank"
+                      rel="noreferrer"
+                    ></a>
+                  ),
+                }}
+              ></Trans>
             </p>
           </div>
         </div>
       </section>
 
-      <section className="container mx-auto mt-[50px] sm:mt-[128px] px-[24px] sm:px-0 pt-[50px]">
-        <h2 className="h3 font-bold uppercase">Artists</h2>
+      <section
+        className="container mx-auto mt-[50px] sm:mt-[128px] px-[24px] sm:px-0 pt-[50px]"
+        id="artist"
+      >
+        <h2 className="h3 font-bold uppercase">Collaborations</h2>
         <div className="h4 mt-[40px]">
-          COLLABORATORS for Special Editions, click images to read details.
+          <Trans i18nKey="subtitle" ns="artist"></Trans>
         </div>
         <div className="sm:flex sm:justify-center sm:items-center mt-[40px]">
           <div
@@ -918,8 +912,26 @@ const Home: NextPage = () => {
                       placeholder="blur"
                     ></Image>
                   </div>
-                  <div className="mt-[32px] sm:mt-0 sm:mr-[48px]">
-                    {artistByName[currArtistName].description}
+                  <div className="sm:flex-1 mt-[32px] sm:mt-0 sm:mr-[48px]">
+                    <p>{artistByName[currArtistName].description}</p>
+                    <div className="sm:flex w-full space-y-[24px] sm:space-x-[32px] sm:space-y-0 mt-[40px]">
+                      <a
+                        className="button sm:flex-1 flex justify-center items-center w-full h-[48px] border rounded-full no-underline"
+                        href={artistByName[currArtistName].ig}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Instagram
+                      </a>
+                      <a
+                        className="button sm:flex-1 flex justify-center items-center w-full h-[48px] border rounded-full no-underline"
+                        href={artistByName[currArtistName].twitter}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Twitter
+                      </a>
+                    </div>
                   </div>
                 </div>
               </section>
@@ -928,7 +940,10 @@ const Home: NextPage = () => {
         </Transition.Root>
       </section>
 
-      <section className="container mx-auto mt-[50px] sm:mt-[128px] px-[24px] sm:px-0 py-[50px]">
+      <section
+        className="container mx-auto mt-[50px] sm:mt-[128px] px-[24px] sm:px-0 py-[50px]"
+        id="team"
+      >
         <h2 className="h3 font-bold uppercase">Team</h2>
         <div className="grid grid-cols-2 gap-x-[16px] sm:gap-x-[32px] gap-y-[32px] sm:gap-y-[40px] mt-[40px]">
           {[
@@ -1023,3 +1038,17 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export async function getStaticProps({ locale }: { locale: string }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, [
+        'intro',
+        'goal',
+        'artist',
+        'story',
+        'roadmap',
+      ])),
+    },
+  };
+}
