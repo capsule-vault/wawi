@@ -322,7 +322,10 @@ const Home: NextPage = () => {
                   <div className="absolute left-1/2 top-1/2 w-1/2 border-t transform -translate-x-1/2 rotate-90"></div>
                 </button>
               </div>
-              <button className="w-full sm:w-[148px] sm:h-[48px] sm:ml-[24px] mt-[24px] sm:mt-0 bg-primary rounded-full">
+              <button
+                className="w-full sm:w-[148px] sm:h-[48px] sm:ml-[24px] mt-[24px] sm:mt-0 bg-primary rounded-full"
+                disabled
+              >
                 <div className="tab text-bg uppercase">Mint</div>
                 <div className="caption2 text-bg uppercase mt-[-6px]">
                   Total {(numTokens * price).toFixed(2)} ETH
