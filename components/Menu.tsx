@@ -125,7 +125,10 @@ const Menu = ({
                 </div>
                 {state.isMobile && (
                   <div className="px-[24px] py-[34px] space-y-[24px]">
-                    <button className="flex justify-center items-center w-full h-[48px] border rounded-full">
+                    <button
+                      className="flex justify-center items-center w-full h-[48px] border rounded-full"
+                      disabled
+                    >
                       Connect Wallet
                     </button>
                     <button

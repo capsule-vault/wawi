@@ -10,6 +10,7 @@ type Props = {
 const Layout = ({ children }: Props) => (
   <>
     <Header></Header>
+    <div className="w-full h-[80px]"></div>
     {children}
     <Footer></Footer>
   </>

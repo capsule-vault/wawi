@@ -49,14 +49,17 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="flex justify-between items-center h-[80px] sm:h-[112px] border-b border-primary">
+    <header className="flex justify-between items-center fixed inset-x-0 top-0 z-30 h-[80px] sm:h-[112px] border-b border-primary bg-bg">
       <div className="w-[182px] ml-[17px] sm:ml-[64px]">
         <Image src={logoImg} layout="responsive" priority></Image>
       </div>
       <div className="self-stretch flex">
         {!state.isMobile && (
           <>
-            <button className="flex justify-center items-center w-[208px] border-l">
+            <button
+              className="flex justify-center items-center w-[208px] border-l"
+              disabled
+            >
               Connect Wallet
             </button>
             <button
@@ -111,7 +114,7 @@ const Header = () => {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <section className="relative max-h-screen sm:max-h-[80vh] sm:container sm:mx-auto sm:top-1/2 sm:transform sm:-translate-y-1/2 px-[24px] sm:px-0 pt-[30px] pb-[50px] overflow-y-auto">
+            <section className="relative max-h-screen sm:max-h-[80vh] sm:container sm:mx-auto sm:top-1/2 sm:transform sm:-translate-y-1/2 px-[24px] sm:px-0 pt-[30px] pb-[50px] sm:py-0 overflow-y-auto">
               <div className="flex justify-between items-center">
                 <h2 className="h3 sm:h1 font-bold">Existing Holders</h2>
                 <button className="w-[32px]" onClick={closeHolderModal}>
@@ -128,6 +131,7 @@ const Header = () => {
                   <Listbox
                     value={currNumMints}
                     onChange={handleMintListboxChange}
+                    disabled
                   >
                     <div className="relative">
                       <Listbox.Button className="relative w-full sm:w-[426px] h-[48px] border rounded-full">
@@ -139,13 +143,13 @@ const Header = () => {
                           />
                         </span>
                       </Listbox.Button>
-                      <Listbox.Options className="absolute w-full sm:w-[426px] mt-[12px] border rounded-3xl overflow-hidden">
+                      <Listbox.Options className="absolute w-full sm:w-[426px] mt-[12px] border rounded-3xl overflow-hidden bg-bg">
                         {new Array(maxNumMints)
                           .fill(null)
                           .map((_, idx) => maxNumMints - idx)
                           .map((n) => (
                             <Listbox.Option
-                              className="flex justify-center items-center w-full h-[48px] bg-bg cursor-pointer"
+                              className="flex justify-center items-center w-full h-[48px] cursor-pointer"
                               key={n}
                               value={n}
                             >
@@ -155,7 +159,10 @@ const Header = () => {
                       </Listbox.Options>
                     </div>
                   </Listbox>
-                  <button className="w-full sm:w-[426px] h-[48px] bg-primary rounded-full">
+                  <button
+                    className="w-full sm:w-[426px] h-[48px] bg-primary rounded-full"
+                    disabled
+                  >
                     <div className="tab text-bg uppercase">Mint</div>
                     <div className="caption2 text-bg uppercase mt-[-6px]">
                       Total {(currNumMints * price).toFixed(2)} ETH
@@ -169,7 +176,10 @@ const Header = () => {
                 </div>
                 <div className="space-y-[32px]">
                   <h3 className="h4">Wasted Wild Holders Claiming</h3>
-                  <button className="w-full sm:w-[426px] h-[48px] bg-primary rounded-full">
+                  <button
+                    className="w-full sm:w-[426px] h-[48px] bg-primary rounded-full"
+                    disabled
+                  >
                     <div className="tab text-bg uppercase">Claim</div>
                   </button>
                   <p>

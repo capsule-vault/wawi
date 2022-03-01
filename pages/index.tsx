@@ -487,7 +487,7 @@ const Home: NextPage = () => {
                   leaveTo="opacity-0 scale-95"
                 >
                   <section
-                    className="relative max-h-screen sm:max-h-[80vh] sm:container sm:mx-auto sm:top-1/2 sm:transform sm:-translate-y-1/2 px-[24px] sm:px-0 pt-[30px] pb-[50px] overflow-y-auto"
+                    className="relative max-h-screen sm:max-h-[80vh] sm:container sm:mx-auto sm:top-1/2 sm:transform sm:-translate-y-1/2 px-[24px] sm:px-0 pt-[30px] pb-[50px] sm:py-0 overflow-y-auto"
                     id="story"
                   >
                     <div className="flex justify-between items-center">
@@ -737,7 +737,7 @@ const Home: NextPage = () => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <section className="relative max-h-screen sm:max-h-[80vh] sm:container sm:mx-auto sm:top-1/2 sm:transform sm:-translate-y-1/2 px-[24px] sm:px-0 pt-[30px] pb-[50px] overflow-y-auto">
+              <section className="relative max-h-screen sm:max-h-[80vh] sm:container sm:mx-auto sm:top-1/2 sm:transform sm:-translate-y-1/2 px-[24px] sm:px-0 pt-[30px] pb-[50px] sm:py-0 overflow-y-auto">
                 <div className="flex justify-between items-center">
                   <Dialog.Title className="h3 sm:h1 font-bold">
                     Artist - {artistByName[currArtistName].name}
