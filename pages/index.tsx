@@ -346,14 +346,14 @@ const Home: NextPage = () => {
       <section className="container mx-auto px-[24px] sm:px-0 pt-[50px] sm:pt-[120px]">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
           <h2 className="h3 sm:h1 font-bold uppercase">Wasted Wild NFT</h2>
-          <a
-            className="button flex justify-center items-center w-full sm:w-[268px] h-[48px] mt-[24px] sm:mt-0 border rounded-full no-underline"
-            href="https://opensea.io/collection/wastedwild"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Opensea
-          </a>
+          {/* <a */}
+          {/*   className="button flex justify-center items-center w-full sm:w-[268px] h-[48px] mt-[24px] sm:mt-0 border rounded-full no-underline" */}
+          {/*   href="https://opensea.io/collection/wastedwild" */}
+          {/*   target="_blank" */}
+          {/*   rel="noreferrer" */}
+          {/* > */}
+          {/*   Opensea */}
+          {/* </a> */}
         </div>
         <div className="sm:flex sm:justify-center sm:items-center sm:space-x-[20px] mt-[40px]">
           <button
