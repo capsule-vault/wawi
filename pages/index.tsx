@@ -149,14 +149,6 @@ const Home: NextPage = () => {
     setIsStoryModalOpen(false);
   }, []);
 
-  const [isRoadmapModalOpen, setIsRoadmapModalOpen] = useState(false);
-  const openRoadmapModal = useCallback(() => {
-    setIsRoadmapModalOpen(true);
-  }, []);
-  const closeRoadmapModal = useCallback(() => {
-    setIsRoadmapModalOpen(false);
-  }, []);
-
   const [isArtistModalOpen, setIsArtistModalOpen] = useState(false);
   const [currArtistName, setCurrArtistName] = useState('aka_chang');
   const openArtistModal = useCallback(() => {
@@ -287,10 +279,10 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <section
-        className="container mx-auto sm:flex sm:mt-[128px] px-[24px] sm:px-0"
+        className="container mx-auto sm:flex px-[24px] sm:px-0 pt-[24px] sm:pt-[128px] pb-[50px] sm:pb-[200px]"
         id="mint"
       >
-        <div className="sm:shrink-0 sm:w-[520px] sm:h-[520px] mt-[24px] sm:mt-[unset] bg-primary]">
+        <div className="sm:shrink-0 sm:w-[520px] sm:h-[520px] bg-primary]">
           <video src="/intro.mp4" muted autoPlay loop playsInline></video>
         </div>
         <div className="sm:flex-1 sm:ml-[80px]">
@@ -348,9 +340,9 @@ const Home: NextPage = () => {
         </div>
       </section>
 
-      <section className="container mx-auto mt-[50px] sm:mt-[128px] px-[24px] sm:px-0 pt-[50px]">
+      <section className="container mx-auto px-[24px] sm:px-0 pt-[50px] sm:pt-[120px]">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-          <h2 className="h3 font-bold uppercase">Wasted Wild NFT</h2>
+          <h2 className="h3 sm:h1 font-bold uppercase">Wasted Wild NFT</h2>
           <a
             className="button flex justify-center items-center w-full sm:w-[268px] h-[48px] mt-[24px] sm:mt-0 border rounded-full no-underline"
             href="https://opensea.io/collection/wastedwild"
@@ -456,11 +448,11 @@ const Home: NextPage = () => {
       </section>
 
       <section
-        className="container mx-auto mt-[84px] sm:mt-[128px] px-[24px] sm:px-0 pt-[50px] sm:pt-[120px]"
+        className="container mx-auto px-[24px] sm:px-0 py-[50px] sm:py-[120px] mt-[134px] sm:mt-[204px]"
         id="goal"
       >
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-          <h2 className="h3 font-bold uppercase">Core Values</h2>
+          <h2 className="h3 sm:h1 font-bold uppercase">Core Values</h2>
           <div className="flex flex-col sm:flex-row sm:space-x-[32px]">
             <button
               className="flex justify-center items-center w-full sm:w-[268px] h-[48px] mt-[24px] sm:mt-0 border rounded-full"
@@ -533,177 +525,6 @@ const Home: NextPage = () => {
                           ></Trans>
                         </p>
                       </div>
-                    </div>
-                  </section>
-                </Transition.Child>
-              </Dialog>
-            </Transition.Root>
-            <button
-              className="flex justify-center items-center w-full sm:w-[268px] h-[48px] mt-[24px] sm:mt-0 border rounded-full"
-              onClick={openRoadmapModal}
-            >
-              Roadmap
-            </button>
-            <Transition.Root show={isRoadmapModalOpen} as={Fragment}>
-              <Dialog
-                className="fixed inset-0 z-40"
-                open={isRoadmapModalOpen}
-                onClose={closeRoadmapModal}
-              >
-                <Transition.Child
-                  as={Fragment}
-                  enter="ease-out duration-300"
-                  enterFrom="opacity-0"
-                  enterTo="opacity-98"
-                  leave="ease-in duration-200"
-                  leaveFrom="opacity-98"
-                  leaveTo="opacity-0"
-                >
-                  <Dialog.Overlay className="fixed inset-0 bg-bg bg-opacity-98" />
-                </Transition.Child>
-                <Transition.Child
-                  as={Fragment}
-                  enter="ease-out duration-300"
-                  enterFrom="opacity-0 scale-95"
-                  enterTo="opacity-100 scale-100"
-                  leave="ease-in duration-200"
-                  leaveFrom="opacity-100 scale-100"
-                  leaveTo="opacity-0 scale-95"
-                >
-                  <section
-                    className="relative max-h-screen sm:max-h-[80vh] sm:container sm:mx-auto sm:top-1/2 sm:transform sm:-translate-y-1/2 px-[24px] sm:px-0 pt-[30px] pb-[50px] overflow-y-auto"
-                    id="roadmap"
-                  >
-                    <div className="flex justify-between items-center">
-                      <h3 className="h3 sm:h1 uppercase font-bold">Roadmap</h3>
-                      <button className="w-[32px]" onClick={closeRoadmapModal}>
-                        <Image
-                          src={iconCloseImg}
-                          layout="responsive"
-                          priority
-                        ></Image>
-                      </button>
-                    </div>
-                    <div className="tab sm:h4 mt-[20px]">
-                      <Trans i18nKey="subtitle" ns="roadmap"></Trans>
-                    </div>
-                    <div className="mt-[32px] space-y-[32px] sm:space-y-[48px]">
-                      {[
-                        {
-                          title: (
-                            <Trans i18nKey="01.title" ns="roadmap"></Trans>
-                          ),
-                          description: (
-                            <Trans
-                              i18nKey="01.description"
-                              ns="roadmap"
-                            ></Trans>
-                          ),
-                          image: roadmap01Img,
-                        },
-                        {
-                          title: (
-                            <Trans i18nKey="02.title" ns="roadmap"></Trans>
-                          ),
-                          description: (
-                            <Trans
-                              i18nKey="02.description"
-                              ns="roadmap"
-                            ></Trans>
-                          ),
-                          image: roadmap02Img,
-                        },
-                        {
-                          title: (
-                            <Trans i18nKey="03.title" ns="roadmap"></Trans>
-                          ),
-                          description: (
-                            <Trans
-                              i18nKey="03.description"
-                              ns="roadmap"
-                            ></Trans>
-                          ),
-                          image: roadmap03Img,
-                        },
-                        {
-                          title: (
-                            <Trans i18nKey="04.title" ns="roadmap"></Trans>
-                          ),
-                          description: (
-                            <Trans
-                              i18nKey="04.description"
-                              ns="roadmap"
-                            ></Trans>
-                          ),
-                          image: roadmap04Img,
-                        },
-                        {
-                          title: (
-                            <Trans i18nKey="05.title" ns="roadmap"></Trans>
-                          ),
-                          description: (
-                            <Trans
-                              i18nKey="05.description"
-                              ns="roadmap"
-                              components={{
-                                aDl: (
-                                  <a
-                                    href="https://decentraland.org/"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                  ></a>
-                                ),
-                                aSand: (
-                                  <a
-                                    href="https://www.sandbox.game/en/"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                  ></a>
-                                ),
-                              }}
-                            ></Trans>
-                          ),
-                          image: roadmap05Img,
-                        },
-                        {
-                          title: (
-                            <Trans i18nKey="06.title" ns="roadmap"></Trans>
-                          ),
-                          description: (
-                            <Trans
-                              i18nKey="06.description"
-                              ns="roadmap"
-                              components={{
-                                aBon: (
-                                  <a
-                                    href="https://festival.ab-ar.art/"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                  ></a>
-                                ),
-                              }}
-                            ></Trans>
-                          ),
-                          image: roadmap06Img,
-                        },
-                      ].map(({ title, description, image }) => (
-                        <div
-                          className="flex flex-col sm:flex-row space-y-[32px] sm:space-y-0 sm:space-x-[32px]"
-                          key={image.src}
-                        >
-                          <div className="sm:shrink-0 w-full sm:w-[168px]">
-                            <Image
-                              src={image}
-                              layout="responsive"
-                              placeholder="blur"
-                            ></Image>
-                          </div>
-                          <div className="space-y-[24px]">
-                            <h4 className="h4 sm:h3 text-[22px]">{title}</h4>
-                            <p>{description}</p>
-                          </div>
-                        </div>
-                      ))}
                     </div>
                   </section>
                 </Transition.Child>
@@ -814,11 +635,11 @@ const Home: NextPage = () => {
       </section>
 
       <section
-        className="container mx-auto mt-[50px] sm:mt-[128px] px-[24px] sm:px-0 pt-[50px] sm:[pt-120px]"
+        className="container mx-auto px-[24px] sm:px-0 pt-[50px] sm:pt-[120px]"
         id="artist"
       >
-        <h2 className="h3 font-bold uppercase">Collaborations</h2>
-        <div className="h4 mt-[40px]">
+        <h2 className="h3 sm:h1 font-bold uppercase">Collaborations</h2>
+        <div className="tab sm:h4 mt-[40px]">
           <Trans i18nKey="subtitle" ns="artist"></Trans>
         </div>
         <div className="sm:flex sm:justify-center sm:items-center sm:space-x-[20px] mt-[40px]">
@@ -966,10 +787,114 @@ const Home: NextPage = () => {
       </section>
 
       <section
-        className="container mx-auto mt-[132px] sm:mt-[128px] px-[24px] sm:px-0 pt-[50px] sm:pt-[120px]"
+        className="container mx-auto px-[24px] sm:px-0 py-[50px] sm:py-[120px] mt-[182px] sm:mt-[252px]"
+        id="roadmap"
+      >
+        <h2 className="h3 sm:h1 font-bold uppercase">Roadmap</h2>
+        <div className="tab sm:h4 mt-[40px]">
+          <Trans i18nKey="subtitle" ns="roadmap"></Trans>
+        </div>
+        <div className="mt-[32px] space-y-[32px] sm:space-y-[48px]">
+          {[
+            {
+              title: <Trans i18nKey="01.title" ns="roadmap"></Trans>,
+              description: (
+                <Trans i18nKey="01.description" ns="roadmap"></Trans>
+              ),
+              image: roadmap01Img,
+            },
+            {
+              title: <Trans i18nKey="02.title" ns="roadmap"></Trans>,
+              description: (
+                <Trans i18nKey="02.description" ns="roadmap"></Trans>
+              ),
+              image: roadmap02Img,
+            },
+            {
+              title: <Trans i18nKey="03.title" ns="roadmap"></Trans>,
+              description: (
+                <Trans i18nKey="03.description" ns="roadmap"></Trans>
+              ),
+              image: roadmap03Img,
+            },
+            {
+              title: <Trans i18nKey="04.title" ns="roadmap"></Trans>,
+              description: (
+                <Trans i18nKey="04.description" ns="roadmap"></Trans>
+              ),
+              image: roadmap04Img,
+            },
+            {
+              title: <Trans i18nKey="05.title" ns="roadmap"></Trans>,
+              description: (
+                <Trans
+                  i18nKey="05.description"
+                  ns="roadmap"
+                  components={{
+                    aDl: (
+                      <a
+                        href="https://decentraland.org/"
+                        target="_blank"
+                        rel="noreferrer"
+                      ></a>
+                    ),
+                    aSand: (
+                      <a
+                        href="https://www.sandbox.game/en/"
+                        target="_blank"
+                        rel="noreferrer"
+                      ></a>
+                    ),
+                  }}
+                ></Trans>
+              ),
+              image: roadmap05Img,
+            },
+            {
+              title: <Trans i18nKey="06.title" ns="roadmap"></Trans>,
+              description: (
+                <Trans
+                  i18nKey="06.description"
+                  ns="roadmap"
+                  components={{
+                    aBon: (
+                      <a
+                        href="https://festival.ab-ar.art/"
+                        target="_blank"
+                        rel="noreferrer"
+                      ></a>
+                    ),
+                  }}
+                ></Trans>
+              ),
+              image: roadmap06Img,
+            },
+          ].map(({ title, description, image }) => (
+            <div
+              className="flex flex-col sm:flex-row space-y-[32px] sm:space-y-0 sm:space-x-[32px]"
+              key={image.src}
+            >
+              <div className="sm:shrink-0 w-full sm:w-[168px]">
+                <Image
+                  src={image}
+                  layout="responsive"
+                  placeholder="blur"
+                ></Image>
+              </div>
+              <div className="space-y-[24px]">
+                <h4 className="h4 sm:h3 text-[22px]">{title}</h4>
+                <p>{description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section
+        className="container mx-auto px-[24px] sm:px-0 py-[50px] sm:py-[120px]"
         id="team"
       >
-        <h2 className="h3 font-bold uppercase">Team</h2>
+        <h2 className="h3 sm:h1 font-bold uppercase">Team</h2>
         <div className="grid grid-cols-2 gap-x-[16px] sm:gap-x-[32px] gap-y-[32px] sm:gap-y-[40px] mt-[40px]">
           {[
             {
@@ -1074,7 +999,7 @@ const Home: NextPage = () => {
           ))}
         </div>
       </section>
-      <div className="w-full mt-[50px] sm:mt-[120px] border-b"></div>
+      <div className="w-full border-b"></div>
       {isToTopBtnVisible && (
         <div className="hidden sm:flex sm:flex-col sm:fixed sm:right-[40px] sm:bottom-[40px] sm:space-y-[32px] sm:z-30">
           <a
