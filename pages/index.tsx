@@ -24,6 +24,8 @@ import { Context } from './_app';
 import iconCloseImg from '../public/icons/close.png';
 import iconSliderPrevImg from '../public/icons/slider_prev.png';
 import iconSliderNextImg from '../public/icons/slider_next.png';
+import iconBottomArrowImg from '../public/icons/bottom_arrow.png';
+import iconBottomDiscordImg from '../public/icons/bottom_discord.png';
 
 import preview01Img from '../public/images/preview_01.png';
 import preview02Img from '../public/images/preview_02.png';
@@ -264,6 +266,23 @@ const Home: NextPage = () => {
     }),
     [],
   );
+
+  const [isToTopBtnVisible, setIsToTopBtnVisible] = useState(false);
+  const handleScroll = useCallback(() => {
+    setIsToTopBtnVisible(document.documentElement.scrollTop > 0);
+  }, []);
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [handleScroll]);
+  const handleToTopBtnClick = useCallback(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, []);
 
   return (
     <Layout>
@@ -1056,6 +1075,29 @@ const Home: NextPage = () => {
         </div>
       </section>
       <div className="w-full mt-[50px] sm:mt-[120px] border-b"></div>
+      {isToTopBtnVisible && (
+        <div className="hidden sm:flex sm:flex-col sm:fixed sm:right-[40px] sm:bottom-[40px] sm:space-y-[32px] sm:z-30">
+          <a
+            className="button w-[40px]"
+            href="https://discord.gg/capsulevault"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Image
+              src={iconBottomDiscordImg}
+              layout="responsive"
+              priority
+            ></Image>
+          </a>
+          <button className="w-[40px]" onClick={handleToTopBtnClick}>
+            <Image
+              src={iconBottomArrowImg}
+              layout="responsive"
+              priority
+            ></Image>
+          </button>
+        </div>
+      )}
     </Layout>
   );
 };
