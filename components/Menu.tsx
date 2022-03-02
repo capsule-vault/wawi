@@ -109,7 +109,7 @@ const Menu = ({
                       className="tab block no-underline"
                       onClick={onCloseBtnClick}
                     >
-                      Artist 藝術家
+                      Collaborations 聯名
                     </button>
                   </Link>
                 </div>
