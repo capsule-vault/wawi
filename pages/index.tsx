@@ -64,6 +64,10 @@ import se07Img from '../public/images/se_07.png';
 import se08Img from '../public/images/se_08.png';
 import se09Img from '../public/images/se_09.png';
 import se10Img from '../public/images/se_10.png';
+import se11Img from '../public/images/se_11.png';
+import se12Img from '../public/images/se_12.png';
+import se13Img from '../public/images/se_13.png';
+import se14Img from '../public/images/se_14.png';
 
 import artist01Img from '../public/images/artist_01.png';
 import artist02Img from '../public/images/artist_02.png';
@@ -75,6 +79,10 @@ import artist07Img from '../public/images/artist_07.png';
 import artist08Img from '../public/images/artist_08.png';
 import artist09Img from '../public/images/artist_09.png';
 import artist10Img from '../public/images/artist_10.png';
+import artist11Img from '../public/images/artist_11.png';
+import artist12Img from '../public/images/artist_12.jpg';
+import artist13Img from '../public/images/artist_13.jpg';
+import artist14Img from '../public/images/artist_14.jpg';
 
 import team01Img from '../public/images/team_01.png';
 import team02Img from '../public/images/team_02.png';
@@ -254,6 +262,36 @@ const Home: NextPage = () => {
         image: artist10Img,
         ig: 'https://www.instagram.com/goodboixian/',
         twitter: 'https://twitter.com/goodboixian',
+      },
+      Raimochi: {
+        name: 'Raimochi',
+        description: <Trans i18nKey="Raimochi.description" ns="artist"></Trans>,
+        image: artist11Img,
+        ig: 'https://www.instagram.com/raimochi/',
+        twitter: 'https://twitter.com/raimochi__',
+      },
+      'YORK YEH': {
+        name: 'YORK YEH',
+        description: <Trans i18nKey="YORK YEH.description" ns="artist"></Trans>,
+        image: artist12Img,
+        ig: 'https://www.instagram.com/yeh5050/',
+        twitter: 'https://twitter.com/yeh5050',
+      },
+      Likuanzhen: {
+        name: 'Likuanzhen',
+        description: (
+          <Trans i18nKey="Likuanzhen.description" ns="artist"></Trans>
+        ),
+        image: artist13Img,
+        ig: 'https://www.instagram.com/likuanzhen/',
+        twitter: 'https://twitter.com/likuanzhen',
+      },
+      TAG: {
+        name: 'TAG',
+        description: <Trans i18nKey="TAG.description" ns="artist"></Trans>,
+        image: artist14Img,
+        ig: 'https://www.instagram.com/calendar_10/',
+        twitter: 'https://twitter.com/tagged_1031',
       },
     }),
     [],
@@ -684,6 +722,10 @@ const Home: NextPage = () => {
                 { img: se08Img, name: 'Ray Han' },
                 { img: se09Img, name: 'Sic Lee' },
                 { img: se10Img, name: 'ZHIXIAN' },
+                { img: se11Img, name: 'Raimochi' },
+                { img: se12Img, name: 'YORK YEH' },
+                { img: se13Img, name: 'Likuanzhen' },
+                { img: se14Img, name: 'TAG' },
               ].map(({ img, name }) => (
                 <SwiperSlide
                   className="relative w-[300px] pb-[132px]"

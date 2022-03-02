@@ -4,7 +4,7 @@
 
 @layer base {
   html, body {
-    @apply antialiased font-primary text-[16px] bg-bg text-primary;
+    @apply antialiased scroll-pt-[80px] sm:scroll-pt-[112px] font-primary text-[16px] bg-bg text-primary;
   }
 
   .h1 {
