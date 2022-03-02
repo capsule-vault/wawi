@@ -188,9 +188,9 @@ const Header = () => {
                     the time of snapshot for FREE.
                   </p>
                 </div>
-                <div className="tab">
-                  Notice : Snapshot was taken on 2022/02/08 11:59
-                </div>
+                {/* <div className="tab"> */}
+                {/*   Notice : Snapshot was taken on 2022/02/08 11:59 */}
+                {/* </div> */}
               </div>
             </section>
           </Transition.Child>
