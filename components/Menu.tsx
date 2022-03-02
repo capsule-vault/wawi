@@ -85,7 +85,7 @@ const Menu = ({
                     </button>
                   </Link>
                   <div className="space-y-[16px]">
-                    <Link href="/#story">
+                    <Link href="/#goal">
                       <button
                         className="p block uppercase no-underline"
                         onClick={onCloseBtnClick}
