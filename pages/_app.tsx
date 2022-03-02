@@ -18,7 +18,7 @@ import '../styles/globals.css';
 // import wawiAbi from '../wawiAbi.json';
 
 const title = 'Wasted Wild NFT By Capsule Vault';
-const description = `Mint a Wasted Wild NFT and plant a tree in the physical world. Restore the wild by protecting endangered species and habitats. So far We have planted 16000 trees with the Capsule Vault community. 鑄造 Wasted Wild 荒野 NFT 的同時也在世界上種下一棵樹木；透過保護瀕危動物和其棲地讓自然得以重生；目前 Capsule Vault 社群已經透過 NFT 在全世界種下超過 16,000 棵樹。`;
+const description = `Mint a Wasted Wild NFT and plant a tree in the physical world. Restore the wild by protecting endangered species and habitats. So far We have planted 16,000 trees with the Capsule Vault community. 鑄造 Wasted Wild 荒野 NFT 的同時也在世界上種下一棵樹木；透過保護瀕危動物和其棲地讓自然得以重生；目前 Capsule Vault 社群已經透過 NFT 在全世界種下超過 16,000 棵樹。`;
 
 type State = {
   signerAddress: string;

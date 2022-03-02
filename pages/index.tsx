@@ -56,7 +56,7 @@ import roadmap06Img from '../public/images/roadmap_06.png';
 
 import se01Img from '../public/images/se_01.png';
 import se02Img from '../public/images/se_02.png';
-import se03Img from '../public/images/se_03.png';
+import se03Img from '../public/images/se_03.jpg';
 import se04Img from '../public/images/se_04.png';
 import se05Img from '../public/images/se_05.png';
 import se06Img from '../public/images/se_06.png';
@@ -773,7 +773,11 @@ const Home: NextPage = () => {
                         Instagram
                       </a>
                       <a
-                        className="button sm:flex-1 flex justify-center items-center w-full h-[48px] border rounded-full no-underline"
+                        className={`${
+                          !artistByName[currArtistName].twitter
+                            ? 'invisible '
+                            : ''
+                        }button sm:flex-1 flex justify-center items-center w-full h-[48px] border rounded-full no-underline`}
                         href={artistByName[currArtistName].twitter}
                         target="_blank"
                         rel="noreferrer"
