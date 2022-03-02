@@ -834,6 +834,13 @@ const Home: NextPage = () => {
                   i18nKey="05.description"
                   ns="roadmap"
                   components={{
+                    aCyber: (
+                      <a
+                        href="https://oncyber.io/"
+                        target="_blank"
+                        rel="noreferrer"
+                      ></a>
+                    ),
                     aDl: (
                       <a
                         href="https://decentraland.org/"
@@ -922,7 +929,7 @@ const Home: NextPage = () => {
               img: team04Img,
               name: 'yellow_river',
               bio: 'Solidity Developer',
-              href: '',
+              href: 'https://twitter.com/yellow_river818',
             },
             {
               img: team05Img,
@@ -970,7 +977,7 @@ const Home: NextPage = () => {
               img: team12Img,
               name: 'Bitman',
               bio: 'Community Manager',
-              href: 'https://twitter.com/Bitmen_',
+              href: 'https://twitter.com/BitmanTW',
             },
           ].map(({ img, name, bio, href }) => (
             <div key={name} className="sm:grid sm:grid-cols-3 sm:gap-[32px]">
