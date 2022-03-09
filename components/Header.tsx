@@ -1,9 +1,16 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useState, useCallback, useContext, Fragment } from 'react';
+import React, {
+  useState,
+  useCallback,
+  useContext,
+  useMemo,
+  Fragment,
+} from 'react';
 import { Transition, Dialog, Listbox } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/solid';
+import { ethers } from 'ethers';
 
 import Menu from '../components/Menu';
 
@@ -12,9 +19,10 @@ import { Context } from '../pages/_app';
 import logoImg from '../public/logo.png';
 import iconMenuImg from '../public/icons/menu.png';
 import iconCloseImg from '../public/icons/close.png';
+import iconMetamaskImg from '../public/icons/metamask.png';
 
 const Header = () => {
-  const { state } = useContext(Context);
+  const { state, ref } = useContext(Context);
 
   const router = useRouter();
 
@@ -42,10 +50,96 @@ const Header = () => {
     openHolderModal();
   }, [openHolderModal, closeMenu]);
 
-  const [currNumMints, setCurrNumMints] = useState(maxNumMints);
+  const [numTokensToMint, setNumTokensToMint] = useState(maxNumMints);
   const handleMintListboxChange = useCallback((n) => {
-    console.log(n);
-    setCurrNumMints(n);
+    setNumTokensToMint(n);
+  }, []);
+
+  const connect = useCallback(async () => {
+    if (!process.env.NEXT_PUBLIC_IS_LIVE) {
+      return;
+    }
+    const isWalletSelected = await ref.current.onboard.walletSelect();
+    if (isWalletSelected) {
+      await ref.current.onboard.walletCheck();
+    }
+  }, []);
+  const handleConnectBtnClick = useCallback(() => {
+    connect();
+  }, [connect]);
+
+  const address = useMemo(() => {
+    let addr = state.signerEns || state.signerAddress;
+    if (addr.length > 13) {
+      addr = `${addr.slice(0, 6)}...${addr.slice(addr.length - 4)}`;
+    }
+    return addr;
+  }, [state.signerEns, state.signerAddress]);
+
+  const totalArboHolderMintPriceInWei = useMemo(
+    () => ethers.utils.parseEther(state.arboHolderPrice).mul(numTokensToMint),
+    [state.arboHolderPrice, numTokensToMint],
+  );
+  const handleArboHolderMintBtnClick = useCallback(async () => {
+    if (
+      !process.env.NEXT_PUBLIC_IS_LIVE ||
+      !process.env.NEXT_PUBLIC_IS_ARBO_HOLDER_MINTING_LIVE
+    ) {
+      return;
+    }
+    let isConnected = true;
+    try {
+      ref.current.provider.getSigner();
+    } catch (err) {
+      alert(`Please connect your wallet first`);
+      isConnected = false;
+    } finally {
+      if (!isConnected) {
+        return;
+      }
+      try {
+        await ref.current.wawi2Contract
+          .connect(ref.current.provider.getSigner())
+          .arboHolderMint(ethers.BigNumber.from(numTokensToMint), {
+            value: totalArboHolderMintPriceInWei,
+          });
+      } catch (err) {
+        if (err.code === 4001) {
+          return;
+        }
+        alert(`Failed to mint: ${err}`);
+      }
+    }
+  }, [numTokensToMint, totalArboHolderMintPriceInWei]);
+
+  const handleClaimBtnClick = useCallback(async () => {
+    if (
+      !process.env.NEXT_PUBLIC_IS_LIVE ||
+      !process.env.NEXT_PUBLIC_IS_CLAIMING_LIVE
+    ) {
+      return;
+    }
+    let isConnected = true;
+    try {
+      ref.current.provider.getSigner();
+    } catch (err) {
+      alert(`Please connect your wallet first`);
+      isConnected = false;
+    } finally {
+      if (!isConnected) {
+        return;
+      }
+      try {
+        await ref.current.wawi2Contract
+          .connect(ref.current.provider.getSigner())
+          .claim();
+      } catch (err) {
+        if (err.code === 4001) {
+          return;
+        }
+        alert(`Failed to mint: ${err}`);
+      }
+    }
   }, []);
 
   return (
@@ -56,12 +150,26 @@ const Header = () => {
       <div className="self-stretch flex">
         {!state.isMobile && (
           <>
-            <button
-              className="flex justify-center items-center w-[208px] border-l"
-              disabled
-            >
-              Connect Wallet
-            </button>
+            {address ? (
+              <div className="flex justify-center items-center gap-2 w-[208px] border-l">
+                <div className="w-[32px]">
+                  <Image
+                    src={iconMetamaskImg}
+                    layout="responsive"
+                    priority
+                  ></Image>
+                </div>
+                <div>{address}</div>
+              </div>
+            ) : (
+              <button
+                className="flex justify-center items-center w-[208px] border-l"
+                onClick={handleConnectBtnClick}
+                disabled={!process.env.NEXT_PUBLIC_IS_LIVE}
+              >
+                Connect Wallet
+              </button>
+            )}
             <button
               className="flex justify-center items-center w-[208px] border-l"
               onClick={openHolderModal}
@@ -129,13 +237,16 @@ const Header = () => {
                 <div className="space-y-[32px]">
                   <h3 className="h4">Absurd Arboretum Holders Minting</h3>
                   <Listbox
-                    value={currNumMints}
+                    value={numTokensToMint}
                     onChange={handleMintListboxChange}
-                    disabled
+                    disabled={
+                      !process.env.NEXT_PUBLIC_IS_LIVE ||
+                      !process.env.NEXT_PUBLIC_IS_ARBO_HOLDER_MINTING_LIVE
+                    }
                   >
                     <div className="relative">
                       <Listbox.Button className="relative w-full sm:w-[426px] h-[48px] border rounded-full">
-                        <div>{currNumMints}</div>
+                        <div>{numTokensToMint}</div>
                         <span className="absolute inset-y-0 right-0 flex items-center pr-[24px] pointer-events-none">
                           <ChevronDownIcon
                             className="w-[20px] h-[20px] text-primary"
@@ -161,11 +272,17 @@ const Header = () => {
                   </Listbox>
                   <button
                     className="w-full sm:w-[426px] h-[48px] bg-primary rounded-full"
-                    disabled
+                    onClick={handleArboHolderMintBtnClick}
+                    disabled={
+                      !process.env.NEXT_PUBLIC_IS_LIVE ||
+                      !process.env.NEXT_PUBLIC_IS_ARBO_HOLDER_MINTING_LIVE
+                    }
                   >
                     <div className="tab text-bg uppercase">Mint</div>
                     <div className="caption2 text-bg uppercase mt-[-6px]">
-                      Total {(currNumMints * price).toFixed(2)} ETH
+                      Total{' '}
+                      {ethers.utils.formatEther(totalArboHolderMintPriceInWei)}{' '}
+                      ETH
                     </div>
                   </button>
                   <p>
@@ -178,7 +295,11 @@ const Header = () => {
                   <h3 className="h4">Wasted Wild Holders Claiming</h3>
                   <button
                     className="w-full sm:w-[426px] h-[48px] bg-primary rounded-full"
-                    disabled
+                    onClick={handleClaimBtnClick}
+                    disabled={
+                      !process.env.NEXT_PUBLIC_IS_LIVE ||
+                      !process.env.NEXT_PUBLIC_IS_CLAIMING_LIVE
+                    }
                   >
                     <div className="tab text-bg uppercase">Claim</div>
                   </button>

@@ -16,6 +16,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { Navigation, Autoplay, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Lightbox from 'react-image-lightbox';
+import { ethers } from 'ethers';
 
 import Layout from '../components/Layout';
 
@@ -123,22 +124,22 @@ type ArtistByName = {
 };
 
 const Home: NextPage = () => {
-  const { state } = useContext(Context);
+  const { state, ref } = useContext(Context);
 
   const price = 0.05;
   const maxNumTokens = 3;
   const minNumTokens = 1;
-  const [numTokens, setNumTokens] = useState(1);
+  const [numTokensToMint, setNumTokensToMint] = useState(1);
   const handleNumTokensInputChange = useCallback((e) => {
-    setNumTokens(
+    setNumTokensToMint(
       Math.max(minNumTokens, Math.min(maxNumTokens, Number(e.target.value))),
     );
   }, []);
   const handleIncrementNumTokensBtnClick = useCallback(() => {
-    setNumTokens((prev) => (prev + 1 > maxNumTokens ? prev : prev + 1));
+    setNumTokensToMint((prev) => (prev + 1 > maxNumTokens ? prev : prev + 1));
   }, []);
   const handleDecrementNumTokensBtnClick = useCallback(() => {
-    setNumTokens((prev) => (prev - 1 < minNumTokens ? prev : prev - 1));
+    setNumTokensToMint((prev) => (prev - 1 < minNumTokens ? prev : prev - 1));
   }, []);
 
   const prevPreviewRef = useRef(null);
@@ -314,6 +315,42 @@ const Home: NextPage = () => {
     });
   }, []);
 
+  const totalMintPriceInWei = useMemo(
+    () => ethers.utils.parseEther(state.price).mul(numTokensToMint),
+    [state.price, numTokensToMint],
+  );
+  const handleMintBtnClick = useCallback(async () => {
+    if (
+      !process.env.NEXT_PUBLIC_IS_LIVE ||
+      !process.env.NEXT_PUBLIC_IS_MINTING_LIVE
+    ) {
+      return;
+    }
+    let isConnected = true;
+    try {
+      ref.current.provider.getSigner();
+    } catch (err) {
+      alert(`Please connect your wallet first`);
+      isConnected = false;
+    } finally {
+      if (!isConnected) {
+        return;
+      }
+      try {
+        await ref.current.wawi2Contract
+          .connect(ref.current.provider.getSigner())
+          .publicMint(ethers.BigNumber.from(numTokensToMint), {
+            value: totalMintPriceInWei,
+          });
+      } catch (err) {
+        if (err.code === 4001) {
+          return;
+        }
+        alert(`Failed to mint: ${err}`);
+      }
+    }
+  }, [numTokensToMint, totalMintPriceInWei]);
+
   return (
     <Layout>
       <section
@@ -342,19 +379,19 @@ const Home: NextPage = () => {
                 <button
                   className="relative w-[48px] h-[48px]"
                   onClick={handleDecrementNumTokensBtnClick}
-                  disabled={numTokens === minNumTokens}
+                  disabled={numTokensToMint === minNumTokens}
                 >
                   <div className="absolute left-1/2 top-1/2 w-1/2 border-t transform -translate-x-1/2"></div>
                 </button>
                 <input
                   className="flex justify-center items-center w-[120px] bg-bg border-0 text-center"
-                  value={numTokens}
+                  value={numTokensToMint}
                   onChange={handleNumTokensInputChange}
                 ></input>
                 <button
                   className="relative w-[48px] h-[48px]"
                   onClick={handleIncrementNumTokensBtnClick}
-                  disabled={numTokens === maxNumTokens}
+                  disabled={numTokensToMint === maxNumTokens}
                 >
                   <div className="absolute left-1/2 top-1/2 w-1/2 border-t transform -translate-x-1/2"></div>
                   <div className="absolute left-1/2 top-1/2 w-1/2 border-t transform -translate-x-1/2 rotate-90"></div>
@@ -362,11 +399,15 @@ const Home: NextPage = () => {
               </div>
               <button
                 className="w-full sm:w-[148px] sm:h-[48px] sm:ml-[24px] mt-[24px] sm:mt-0 bg-primary rounded-full"
-                disabled
+                onClick={handleMintBtnClick}
+                disabled={
+                  !process.env.NEXT_PUBLIC_IS_LIVE ||
+                  !process.env.NEXT_PUBLIC_IS_MINTING_LIVE
+                }
               >
                 <div className="tab text-bg uppercase">Mint</div>
                 <div className="caption2 text-bg uppercase mt-[-6px]">
-                  Total {(numTokens * price).toFixed(2)} ETH
+                  Total {ethers.utils.formatEther(totalMintPriceInWei)} ETH
                 </div>
               </button>
             </div>
