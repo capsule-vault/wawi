@@ -29,6 +29,8 @@ type State = {
   maxTokensPerTx: string;
   lang: string;
   isMobile: boolean;
+  numArbos: string;
+  numWawis: string;
 };
 
 type Action = {
@@ -59,6 +61,8 @@ const initialState: State = {
   maxTokensPerTx: '3',
   lang: 'en',
   isMobile: true,
+  numArbos: '0',
+  numWawis: '0',
 };
 
 export const Context = React.createContext({} as ContextValue);
@@ -77,6 +81,20 @@ const reducer: Reducer = (state: State, action: Action): State => {
       return {
         ...state,
         signerEns,
+      };
+    }
+    case 'SET_NUM_ARBOS': {
+      const numArbos = action.payload;
+      return {
+        ...state,
+        numArbos,
+      };
+    }
+    case 'SET_NUM_WAWIS': {
+      const numWawis = action.payload;
+      return {
+        ...state,
+        numWawis,
       };
     }
     case 'SET_PRICE': {
@@ -137,8 +155,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   } as RefValue);
   useEffect(() => {
     ref.current.onboard = Onboard({
-      dappId: process.env.NEXT_PUBLIC_BN_API_KEY,
-      networkId: process.env.NEXT_PUBLIC_NETWORK === 'homestead' ? 1 : 4,
+      dappId: process.env.NEXT_PUBLIC_BN_API_KEY!,
+      networkId: process.env.NEXT_PUBLIC_NETWORK! === 'homestead' ? 1 : 4,
       darkMode: true,
       walletSelect: {
         wallets: [
@@ -146,8 +164,8 @@ function MyApp({ Component, pageProps }: AppProps) {
           {
             walletName: 'walletConnect',
             rpc: {
-              [process.env.NEXT_PUBLIC_NETWORK === 'homestead' ? 1 : 4]:
-                process.env.NEXT_PUBLIC_RPC_URL,
+              [process.env.NEXT_PUBLIC_NETWORK! === 'homestead' ? '1' : '4']:
+                process.env.NEXT_PUBLIC_RPC_URL!,
             },
           },
         ],
@@ -156,7 +174,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         wallet: (w) => {
           ref.current.provider = new ethers.providers.Web3Provider(w.provider);
           ref.current.wawi2Contract = new ethers.Contract(
-            process.env.NEXT_PUBLIC_WAWI2_ADDRESS,
+            process.env.NEXT_PUBLIC_WAWI2_ADDRESS!,
             wawi2Abi,
             ref.current.provider,
           );
@@ -167,7 +185,28 @@ function MyApp({ Component, pageProps }: AppProps) {
               type: 'SET_SIGNER_ADDRESS',
               payload: addr,
             });
+
+            const update = async () => {
+              const numArbos = await ref.current.wawi2Contract._arboHoldings(
+                addr,
+              );
+              dispatch({
+                type: 'SET_NUM_ARBOS',
+                payload: numArbos.toString(),
+              });
+              const numWawis = await ref.current.wawi2Contract._wawiHoldings(
+                addr,
+              );
+              dispatch({
+                type: 'SET_NUM_WAWIS',
+                payload: numWawis.toString(),
+              });
+            };
+            update();
           }
+        },
+        ens: (e) => {
+          console.log(e);
         },
       },
     });
@@ -197,11 +236,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       });
     };
     ref.current.provider = new ethers.providers.AlchemyProvider(
-      process.env.NEXT_PUBLIC_NETWORK,
-      process.env.NEXT_PUBLIC_RPC_URL.split('/').pop(),
+      process.env.NEXT_PUBLIC_NETWORK!,
+      process.env.NEXT_PUBLIC_RPC_URL!.split('/').pop(),
     );
     ref.current.wawi2Contract = new ethers.Contract(
-      process.env.NEXT_PUBLIC_WAWI2_ADDRESS,
+      process.env.NEXT_PUBLIC_WAWI2_ADDRESS!,
       wawi2Abi,
       ref.current.provider,
     );

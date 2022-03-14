@@ -322,34 +322,24 @@ const Home: NextPage = () => {
   const handleMintBtnClick = useCallback(async () => {
     if (
       !process.env.NEXT_PUBLIC_IS_LIVE ||
-      !process.env.NEXT_PUBLIC_IS_MINTING_LIVE
+      !process.env.NEXT_PUBLIC_IS_MINTING_LIVE ||
+      !state.signerAddress
     ) {
       return;
     }
-    let isConnected = true;
     try {
-      ref.current.provider.getSigner();
-    } catch (err) {
-      alert(`Please connect your wallet first`);
-      isConnected = false;
-    } finally {
-      if (!isConnected) {
+      await ref.current.wawi2Contract
+        .connect(ref.current.provider.getSigner())
+        .publicMint(ethers.BigNumber.from(numTokensToMint), {
+          value: totalMintPriceInWei,
+        });
+    } catch (err: any) {
+      if (err.code === 4001) {
         return;
       }
-      try {
-        await ref.current.wawi2Contract
-          .connect(ref.current.provider.getSigner())
-          .publicMint(ethers.BigNumber.from(numTokensToMint), {
-            value: totalMintPriceInWei,
-          });
-      } catch (err) {
-        if (err.code === 4001) {
-          return;
-        }
-        alert(`Failed to mint: ${err}`);
-      }
+      alert(`Failed to mint: ${err}`);
     }
-  }, [numTokensToMint, totalMintPriceInWei]);
+  }, [numTokensToMint, totalMintPriceInWei, state.signerAddress]);
 
   return (
     <Layout>
@@ -402,7 +392,8 @@ const Home: NextPage = () => {
                 onClick={handleMintBtnClick}
                 disabled={
                   !process.env.NEXT_PUBLIC_IS_LIVE ||
-                  !process.env.NEXT_PUBLIC_IS_MINTING_LIVE
+                  !process.env.NEXT_PUBLIC_IS_MINTING_LIVE ||
+                  !state.signerAddress
                 }
               >
                 <div className="tab text-bg uppercase">Mint</div>

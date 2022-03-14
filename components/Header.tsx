@@ -83,64 +83,51 @@ const Header = () => {
   const handleArboHolderMintBtnClick = useCallback(async () => {
     if (
       !process.env.NEXT_PUBLIC_IS_LIVE ||
-      !process.env.NEXT_PUBLIC_IS_ARBO_HOLDER_MINTING_LIVE
+      !process.env.NEXT_PUBLIC_IS_ARBO_HOLDER_MINTING_LIVE ||
+      !state.signerAddress ||
+      !ethers.BigNumber.from(state.numArbos).gt(ethers.constants.Zero)
     ) {
       return;
     }
-    let isConnected = true;
     try {
-      ref.current.provider.getSigner();
-    } catch (err) {
-      alert(`Please connect your wallet first`);
-      isConnected = false;
-    } finally {
-      if (!isConnected) {
+      await ref.current.wawi2Contract
+        .connect(ref.current.provider.getSigner())
+        .arboHolderMint(ethers.BigNumber.from(numTokensToMint), {
+          value: totalArboHolderMintPriceInWei,
+        });
+    } catch (err: any) {
+      if (err.code === 4001) {
         return;
       }
-      try {
-        await ref.current.wawi2Contract
-          .connect(ref.current.provider.getSigner())
-          .arboHolderMint(ethers.BigNumber.from(numTokensToMint), {
-            value: totalArboHolderMintPriceInWei,
-          });
-      } catch (err) {
-        if (err.code === 4001) {
-          return;
-        }
-        alert(`Failed to mint: ${err}`);
-      }
+      alert(`Failed to mint: ${err}`);
     }
-  }, [numTokensToMint, totalArboHolderMintPriceInWei]);
+  }, [
+    numTokensToMint,
+    totalArboHolderMintPriceInWei,
+    state.signerAddress,
+    state.numArbos,
+  ]);
 
   const handleClaimBtnClick = useCallback(async () => {
     if (
       !process.env.NEXT_PUBLIC_IS_LIVE ||
-      !process.env.NEXT_PUBLIC_IS_CLAIMING_LIVE
+      !process.env.NEXT_PUBLIC_IS_CLAIMING_LIVE ||
+      !state.signerAddress ||
+      !ethers.BigNumber.from(state.numWawis).gt(ethers.constants.Zero)
     ) {
       return;
     }
-    let isConnected = true;
     try {
-      ref.current.provider.getSigner();
-    } catch (err) {
-      alert(`Please connect your wallet first`);
-      isConnected = false;
-    } finally {
-      if (!isConnected) {
+      await ref.current.wawi2Contract
+        .connect(ref.current.provider.getSigner())
+        .claim();
+    } catch (err: any) {
+      if (err.code === 4001) {
         return;
       }
-      try {
-        await ref.current.wawi2Contract
-          .connect(ref.current.provider.getSigner())
-          .claim();
-      } catch (err) {
-        if (err.code === 4001) {
-          return;
-        }
-        alert(`Failed to mint: ${err}`);
-      }
+      alert(`Failed to mint: ${err}`);
     }
-  }, []);
+  }, [state.signerAddress, state.numWawis]);
 
   return (
     <header className="flex justify-between items-center fixed inset-x-0 top-0 z-30 h-[80px] sm:h-[112px] border-b border-primary bg-bg">
@@ -241,7 +228,11 @@ const Header = () => {
                     onChange={handleMintListboxChange}
                     disabled={
                       !process.env.NEXT_PUBLIC_IS_LIVE ||
-                      !process.env.NEXT_PUBLIC_IS_ARBO_HOLDER_MINTING_LIVE
+                      !process.env.NEXT_PUBLIC_IS_ARBO_HOLDER_MINTING_LIVE ||
+                      !state.signerAddress ||
+                      !ethers.BigNumber.from(state.numArbos).gt(
+                        ethers.constants.Zero,
+                      )
                     }
                   >
                     <div className="relative">
@@ -275,7 +266,11 @@ const Header = () => {
                     onClick={handleArboHolderMintBtnClick}
                     disabled={
                       !process.env.NEXT_PUBLIC_IS_LIVE ||
-                      !process.env.NEXT_PUBLIC_IS_ARBO_HOLDER_MINTING_LIVE
+                      !process.env.NEXT_PUBLIC_IS_ARBO_HOLDER_MINTING_LIVE ||
+                      !state.signerAddress ||
+                      !ethers.BigNumber.from(state.numArbos).gt(
+                        ethers.constants.Zero,
+                      )
                     }
                   >
                     <div className="tab text-bg uppercase">Mint</div>
@@ -286,9 +281,17 @@ const Header = () => {
                     </div>
                   </button>
                   <p>
-                    Please first connect your wallet, each eligible Absurd
-                    Arboretum holder may mint up to {maxNumMints} Wasted Wild
-                    NFT(s) at a discounted price of {price} ETH each.
+                    {state.signerAddress ? (
+                      ethers.BigNumber.from(state.numArbos).gt(
+                        ethers.constants.Zero,
+                      ) ? (
+                        `Now you can mint Wasted Wild NFT(s) at ${price} ETH.`
+                      ) : (
+                        <span className="text-error">{`No eligible Absurd Arboretum NFT.`}</span>
+                      )
+                    ) : (
+                      `Please first connect your wallet, each eligible Absurd Arboretum holder may mint up to ${maxNumMints} Wasted Wild NFT(s) at a discounted price of ${price} ETH each.`
+                    )}
                   </p>
                 </div>
                 <div className="space-y-[32px]">
@@ -298,15 +301,27 @@ const Header = () => {
                     onClick={handleClaimBtnClick}
                     disabled={
                       !process.env.NEXT_PUBLIC_IS_LIVE ||
-                      !process.env.NEXT_PUBLIC_IS_CLAIMING_LIVE
+                      !process.env.NEXT_PUBLIC_IS_CLAIMING_LIVE ||
+                      !state.signerAddress ||
+                      !ethers.BigNumber.from(state.numWawis).gt(
+                        ethers.constants.Zero,
+                      )
                     }
                   >
                     <div className="tab text-bg uppercase">Claim</div>
                   </button>
                   <p>
-                    Please first connect your wallet, each eligible Wasted Wild
-                    holder may claim the amount that matches their holding at
-                    the time of snapshot for FREE.
+                    {state.signerAddress ? (
+                      ethers.BigNumber.from(state.numWawis).gt(
+                        ethers.constants.Zero,
+                      ) ? (
+                        `Now you can claim ${state.numWawis} Wasted Wild NFT(s) for free(+gas).`
+                      ) : (
+                        <span className="text-error">{`No eligible Wasted Wild NFT.`}</span>
+                      )
+                    ) : (
+                      `Please first connect your wallet, each eligible Wasted Wild holder may claim the amount that matches their holding at the time of snapshot for FREE.`
+                    )}
                   </p>
                 </div>
                 {/* <div className="tab"> */}
