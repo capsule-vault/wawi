@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useContext, Fragment } from 'react';
+import React, { useContext, useCallback, useMemo, Fragment } from 'react';
 import { Transition, Dialog } from '@headlessui/react';
 
 import Footer from './Footer';
@@ -9,6 +9,7 @@ import Footer from './Footer';
 import { Context } from '../pages/_app';
 
 import iconMenuCloseImg from '../public/icons/menu_close.png';
+import iconMetamaskImg from '../public/icons/metamask.png';
 
 type Props = {
   isOpen?: boolean;
@@ -21,9 +22,30 @@ const Menu = ({
   onCloseBtnClick,
   onOpenHolderBtnClick,
 }: Props) => {
-  const { state } = useContext(Context);
+  const { state, ref } = useContext(Context);
 
   const router = useRouter();
+
+  const connect = useCallback(async () => {
+    if (!process.env.NEXT_PUBLIC_IS_LIVE) {
+      return;
+    }
+    const isWalletSelected = await ref.current.onboard.walletSelect();
+    if (isWalletSelected) {
+      await ref.current.onboard.walletCheck();
+    }
+  }, []);
+  const handleConnectBtnClick = useCallback(() => {
+    connect();
+  }, [connect]);
+
+  const address = useMemo(() => {
+    let addr = state.signerEns || state.signerAddress;
+    if (addr.length > 13) {
+      addr = `${addr.slice(0, 6)}...${addr.slice(addr.length - 4)}`;
+    }
+    return addr;
+  }, [state.signerEns, state.signerAddress]);
 
   return (
     <Transition.Root show={isOpen} as={Fragment}>
@@ -125,12 +147,26 @@ const Menu = ({
                 </div>
                 {state.isMobile && (
                   <div className="px-[24px] py-[34px] space-y-[24px]">
-                    <button
-                      className="flex justify-center items-center w-full h-[48px] border rounded-full"
-                      disabled
-                    >
-                      Connect Wallet
-                    </button>
+                    {address ? (
+                      <div className="flex justify-center items-center gap-2 w-[208px] border-l">
+                        <div className="w-[32px]">
+                          <Image
+                            src={iconMetamaskImg}
+                            layout="responsive"
+                            priority
+                          ></Image>
+                        </div>
+                        <div>{address}</div>
+                      </div>
+                    ) : (
+                      <button
+                        className="flex justify-center items-center w-full h-[48px] border rounded-full"
+                        onClick={handleConnectBtnClick}
+                        disabled={!process.env.NEXT_PUBLIC_IS_LIVE}
+                      >
+                        Connect Wallet
+                      </button>
+                    )}
                     <button
                       className="flex justify-center items-center w-full h-[48px] border rounded-full"
                       onClick={onOpenHolderBtnClick}

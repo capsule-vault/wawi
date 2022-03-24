@@ -15,7 +15,7 @@ import 'react-image-lightbox/style.css';
 
 import '../styles/globals.css';
 
-// import wawiAbi from '../wawiAbi.json';
+import wawi2Abi from '../wawi2Abi.json';
 
 const title = 'Wasted Wild NFT By Capsule Vault';
 const description = `Mint a Wasted Wild NFT and plant a tree in the physical world. Restore the wild by protecting endangered species and habitats. So far We have planted 16,000 trees with the Capsule Vault community. 鑄造 Wasted Wild 荒野 NFT 的同時也在世界上種下一棵樹木；透過保護瀕危動物和其棲地讓自然得以重生；目前 Capsule Vault 社群已經透過 NFT 在全世界種下超過 16,000 棵樹。`;
@@ -24,10 +24,13 @@ type State = {
   signerAddress: string;
   signerEns: string;
   price: string;
+  arboHolderPrice: string;
   maxSupply: string;
   maxTokensPerTx: string;
   lang: string;
   isMobile: boolean;
+  numArbos: string;
+  numWawis: string;
 };
 
 type Action = {
@@ -40,7 +43,7 @@ type Reducer = (state: State, action: Action) => State;
 type RefValue = {
   onboard: any;
   provider: any;
-  wawiContract: any;
+  wawi2Contract: any;
 };
 
 type ContextValue = {
@@ -52,11 +55,14 @@ type ContextValue = {
 const initialState: State = {
   signerAddress: '',
   signerEns: '',
-  price: '0.07',
-  maxSupply: '6666',
-  maxTokensPerTx: '5',
+  price: '0.05',
+  arboHolderPrice: '0.02',
+  maxSupply: '4200',
+  maxTokensPerTx: '3',
   lang: 'en',
   isMobile: true,
+  numArbos: '0',
+  numWawis: '0',
 };
 
 export const Context = React.createContext({} as ContextValue);
@@ -77,11 +83,32 @@ const reducer: Reducer = (state: State, action: Action): State => {
         signerEns,
       };
     }
+    case 'SET_NUM_ARBOS': {
+      const numArbos = action.payload;
+      return {
+        ...state,
+        numArbos,
+      };
+    }
+    case 'SET_NUM_WAWIS': {
+      const numWawis = action.payload;
+      return {
+        ...state,
+        numWawis,
+      };
+    }
     case 'SET_PRICE': {
       const price = action.payload;
       return {
         ...state,
         price,
+      };
+    }
+    case 'SET_ARBO_HOLDER_PRICE': {
+      const arboHolderPrice = action.payload;
+      return {
+        ...state,
+        arboHolderPrice,
       };
     }
     case 'SET_MAX_SUPPLY': {
@@ -124,79 +151,99 @@ function MyApp({ Component, pageProps }: AppProps) {
   const ref = useRef({
     onboard: null,
     provider: null,
-    wawiContract: null,
+    wawi2Contract: null,
   } as RefValue);
   useEffect(() => {
-    // ref.current.onboard = Onboard({
-    //   dappId: process.env.NEXT_PUBLIC_BN_API_KEY,
-    //   networkId: process.env.NEXT_PUBLIC_NETWORK === 'homestead' ? 1 : 4,
-    //   darkMode: true,
-    //   walletSelect: {
-    //     wallets: [
-    //       { walletName: 'metamask', preferred: true },
-    //       {
-    //         walletName: 'walletConnect',
-    //         rpc: {
-    //           [process.env.NEXT_PUBLIC_NETWORK === 'homestead' ? 1 : 4]:
-    //             process.env.NEXT_PUBLIC_RPC_URL,
-    //         },
-    //       },
-    //     ],
-    //   },
-    //   subscriptions: {
-    //     wallet: (wallet) => {
-    //       ref.current.provider = new ethers.providers.Web3Provider(
-    //         wallet.provider,
-    //       );
-    //     },
-    //     address: (address) => {
-    //       if (address) {
-    //         dispatch({
-    //           type: 'SET_SIGNER_ADDRESS',
-    //           payload: address,
-    //         });
-    //       }
-    //     },
-    //     ens: (ens) => {
-    //       if (ens) {
-    //         dispatch({
-    //           type: 'SET_SIGNER_ENS',
-    //           payload: ens.name,
-    //         });
-    //       }
-    //     },
-    //   },
-    // });
+    ref.current.onboard = Onboard({
+      dappId: process.env.NEXT_PUBLIC_BN_API_KEY!,
+      networkId: process.env.NEXT_PUBLIC_NETWORK! === 'homestead' ? 1 : 4,
+      darkMode: true,
+      walletSelect: {
+        wallets: [
+          { walletName: 'metamask', preferred: true },
+          {
+            walletName: 'walletConnect',
+            rpc: {
+              [process.env.NEXT_PUBLIC_NETWORK! === 'homestead' ? '1' : '4']:
+                process.env.NEXT_PUBLIC_RPC_URL!,
+            },
+          },
+        ],
+      },
+      subscriptions: {
+        wallet: (w) => {
+          ref.current.provider = new ethers.providers.Web3Provider(w.provider);
+          ref.current.wawi2Contract = new ethers.Contract(
+            process.env.NEXT_PUBLIC_WAWI2_ADDRESS!,
+            wawi2Abi,
+            ref.current.provider,
+          );
+        },
+        address: (addr) => {
+          if (addr) {
+            dispatch({
+              type: 'SET_SIGNER_ADDRESS',
+              payload: addr,
+            });
+
+            const update = async () => {
+              const numArbos = await ref.current.wawi2Contract._arboHoldings(
+                addr,
+              );
+              dispatch({
+                type: 'SET_NUM_ARBOS',
+                payload: numArbos.toString(),
+              });
+              const numWawis = await ref.current.wawi2Contract._wawiHoldings(
+                addr,
+              );
+              dispatch({
+                type: 'SET_NUM_WAWIS',
+                payload: numWawis.toString(),
+              });
+            };
+            update();
+          }
+        },
+        ens: (e) => {
+          console.log(e);
+        },
+      },
+    });
   }, []);
   useEffect(() => {
     const init = async () => {
-      // const price = await ref.current.wawiContract.PRICE_PER_TOKEN();
-      // dispatch({
-      //   type: 'SET_PRICE',
-      //   payload: ethers.utils.formatEther(price),
-      // });
-      // const maxSupply = await ref.current.wawiContract._maxSupply();
-      // dispatch({
-      //   type: 'SET_MAX_SUPPLY',
-      //   payload: maxSupply.toString(),
-      // });
-      // const maxTokensPerTx = await ref.current.wawiContract._maxPerTxn();
-      // dispatch({
-      //   type: 'SET_MAX_TOKENS_PER_TX',
-      //   payload: maxTokensPerTx.toString(),
-      // });
+      const price = await ref.current.wawi2Contract.PRICE_PER_TOKEN();
+      dispatch({
+        type: 'SET_PRICE',
+        payload: ethers.utils.formatEther(price),
+      });
+      const arboHolderPrice =
+        await ref.current.wawi2Contract.ARBO_HODLER_PRICE();
+      dispatch({
+        type: 'SET_ARBO_HOLDER_PRICE',
+        payload: ethers.utils.formatEther(arboHolderPrice),
+      });
+      const maxSupply = await ref.current.wawi2Contract._maxSupply();
+      dispatch({
+        type: 'SET_MAX_SUPPLY',
+        payload: maxSupply.toString(),
+      });
+      const maxTokensPerTx = await ref.current.wawi2Contract._maxPerTxn();
+      dispatch({
+        type: 'SET_MAX_TOKENS_PER_TX',
+        payload: maxTokensPerTx.toString(),
+      });
     };
-    // if (!ref.current.provider) {
-    //   ref.current.provider = new ethers.providers.AlchemyProvider(
-    //     process.env.NEXT_PUBLIC_NETWORK,
-    //     process.env.NEXT_PUBLIC_RPC_URL.split('/').pop(),
-    //   );
-    // }
-    // ref.current.wawiContract = new ethers.Contract(
-    //   process.env.NEXT_PUBLIC_WAWI_ADDRESS,
-    //   wawiAbi,
-    //   ref.current.provider,
-    // );
+    ref.current.provider = new ethers.providers.AlchemyProvider(
+      process.env.NEXT_PUBLIC_NETWORK!,
+      process.env.NEXT_PUBLIC_RPC_URL!.split('/').pop(),
+    );
+    ref.current.wawi2Contract = new ethers.Contract(
+      process.env.NEXT_PUBLIC_WAWI2_ADDRESS!,
+      wawi2Abi,
+      ref.current.provider,
+    );
     init();
   }, []);
 
