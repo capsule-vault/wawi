@@ -68,6 +68,11 @@ const Header = () => {
     connect();
   }, [connect]);
 
+  const handleMenuConnectBtnClick = useCallback(() => {
+    closeMenu();
+    connect();
+  }, [connect]);
+
   const address = useMemo(() => {
     let addr = state.signerEns || state.signerAddress;
     if (addr.length > 13) {
@@ -180,6 +185,7 @@ const Header = () => {
       <Menu
         isOpen={isMenuOpen}
         onCloseBtnClick={closeMenu}
+        onConnectBtnClick={handleMenuConnectBtnClick}
         onOpenHolderBtnClick={handleMenuOpenHolderBtnClick}
       ></Menu>
 

@@ -14,30 +14,19 @@ import iconMetamaskImg from '../public/icons/metamask.png';
 type Props = {
   isOpen?: boolean;
   onCloseBtnClick: () => void;
+  onConnectBtnClick: () => void;
   onOpenHolderBtnClick: () => void;
 };
 
 const Menu = ({
   isOpen = false,
   onCloseBtnClick,
+  onConnectBtnClick,
   onOpenHolderBtnClick,
 }: Props) => {
-  const { state, ref } = useContext(Context);
+  const { state } = useContext(Context);
 
   const router = useRouter();
-
-  const connect = useCallback(async () => {
-    if (!process.env.NEXT_PUBLIC_IS_LIVE) {
-      return;
-    }
-    const isWalletSelected = await ref.current.onboard.walletSelect();
-    if (isWalletSelected) {
-      await ref.current.onboard.walletCheck();
-    }
-  }, []);
-  const handleConnectBtnClick = useCallback(() => {
-    connect();
-  }, [connect]);
 
   const address = useMemo(() => {
     let addr = state.signerEns || state.signerAddress;
@@ -148,7 +137,7 @@ const Menu = ({
                 {state.isMobile && (
                   <div className="px-[24px] py-[34px] space-y-[24px]">
                     {address ? (
-                      <div className="flex justify-center items-center gap-2 w-[208px] border-l">
+                      <div className="flex justify-center items-center w-full h-[48px] border rounded-full">
                         <div className="w-[32px]">
                           <Image
                             src={iconMetamaskImg}
@@ -161,7 +150,7 @@ const Menu = ({
                     ) : (
                       <button
                         className="flex justify-center items-center w-full h-[48px] border rounded-full"
-                        onClick={handleConnectBtnClick}
+                        onClick={onConnectBtnClick}
                         disabled={!process.env.NEXT_PUBLIC_IS_LIVE}
                       >
                         Connect Wallet
